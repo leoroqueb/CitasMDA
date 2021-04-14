@@ -1,10 +1,12 @@
-<ion-header [translucent]="true">
+<!--<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
       Inicio
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header>-->
+
+<!--<ion-header [translucent]="true"></ion-header>-->
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -14,8 +16,13 @@
   </ion-header>
 
   <div id="container">
-    <strong>Encantados de volver a verte,</strong>
-    <p>Juan José</p>
+    <div class="background">
+      <ion-icon name="menu-outline" id="menuIcon"></ion-icon>
+      <div class="welcome">
+        <strong>Tus citas</strong>
+        <p>Juan José</p>
+      </div>
+    </div>
 
     <ion-card>
       <ion-card-header>
@@ -26,11 +33,11 @@
         <div class="card-cita">
           <div class="fecha">
             <ion-icon name="time-outline"></ion-icon>
-            24/03/2021
+            <p>24/03/2021</p>
           </div>
           <div class="lugar">
             <ion-icon name="navigate-outline"></ion-icon>
-            Centro médico Leonardo
+            <p>Hospital San Roque</p>
           </div>
         </div>
 
