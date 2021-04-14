@@ -4,8 +4,19 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+
+  margin-top: 1em;
+  font-family: 'Nunito', sans-serif;
+
+  ion-card{
+    ion-card-subtitle {
+      text-align: left;
+    }
+
+    .card-cita{
+      text-align: left;
+    }
+  }
 }
 
 #container strong {
@@ -25,3 +36,4 @@
 #container a {
   text-decoration: none;
 }
+
