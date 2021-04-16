@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HorariosI } from '../models/usuarios.interface';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,16 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(
+    private horario: HorariosI
+  ) {
+    this.horario = {
+      hora: "9:00",
+      aforo: {
+        actual: 0,
+        maximo: 5
+      }
+    }
+  }
 
 }
