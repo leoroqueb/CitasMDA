@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import $ from 'jquery';
+import * as $ from 'jquery';
+import { AuthService } from '../providers/auth.service'
 
 @Component({
   selector: 'app-login',
@@ -7,8 +8,13 @@ import $ from 'jquery';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  login = {};
-  constructor() { }
+  login = {
+    email: "",
+    password: ""
+  };
+  constructor(
+    private authService: AuthService,
+  ) { }
 
   ngOnInit() {
 
@@ -16,12 +22,14 @@ export class LoginPage implements OnInit {
 
   registerAnimation(){
     $('.blockwhite').addClass('animationUp');
-    $('.blockwhite > p').text('¡Es hora de tener una cuenta!');
+    $('.blockwhite > p').text('¿A qué esperas?');
     $('#textAnimation').css('display', 'block');
   }
 
-  onSubmit(){
-    console.log(this.login);
+  logInUser(){
+    this.authService.loginUser(this.login.email, this.login.password )
+    .then(() => alert("Entro correcto"))
+    .catch(err => console.log(err));
   }
 
 }

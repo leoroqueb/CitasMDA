@@ -6,7 +6,7 @@
 </ion-header>
 -->
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" scroll-y="false">
 
   <div class="container">
 
@@ -20,10 +20,10 @@
     </div>
 
     <div class="formulario">
-      <form (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="logInUser()">
         <ion-item>
           <!--<ion-label>Nombre</ion-label>-->
-          <ion-input type="text" [(ngModel)]="login.title" name="title" placeholder="Nombre"></ion-input>
+          <ion-input type="email" [(ngModel)]="login.email" name="title" placeholder="Nombre"></ion-input>
         </ion-item>
         <ion-item>
           <!--<ion-label>Contraseña</ion-label>-->
@@ -37,7 +37,11 @@
       <p>¿No tienes cuenta?</p>
 
       <div id="textAnimation" style="display: none">
-        Regístrate y
+        <ion-button routerLink= '/registration' fill="clear" shape="round">
+          Regístrate
+        </ion-button>
+        <br>
+        y
         <div id=flip>
           <div><div>Solicita</div></div>
           <div><div>Organiza</div></div>

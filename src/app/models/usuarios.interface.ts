@@ -20,7 +20,7 @@ export interface CitasI {
 
 export interface HorariosI {
     hora: string;
-    aforo: AforoI
+    aforo?: string;
 }
 
 export interface AforoI {
