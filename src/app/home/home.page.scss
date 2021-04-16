@@ -12,7 +12,6 @@ $purple: #5F2967;
   height: 100%;
 
   .background{
-    padding-top: 3em;
     position: relative;
     z-index: 0;
     height: 9em;
@@ -48,6 +47,7 @@ $purple: #5F2967;
 
   ion-card{
     border-left: $purple 5px solid;
+    background-color: white;
     ion-card-subtitle {
       text-align: left;
       font-family: 'Nunito', sans-serif;
@@ -74,11 +74,31 @@ $purple: #5F2967;
       }
     }
   }
+
+  .navbar {
+    margin-bottom: 1rem;
+    background-color: black;
+    .wrapp-logo {
+      width: 75vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .app-logo{
+        background-image: url('../../assets/img/logo1.png');
+        width: 3rem;
+        height: 3rem;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        margin: 0.5rem auto;
+      }
+    }
+  }
 }
 
 #container strong {
   font-size: 20px;
-  line-height: 26px;
+  line-height: 20px;
 }
 
 #container p {
