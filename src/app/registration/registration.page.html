@@ -1,0 +1,29 @@
+<ion-toolbar class="navbar">
+  <ion-buttons slot="start">
+    <ion-menu-button></ion-menu-button>
+    <div class="wrapp-logo">
+      <div class="app-logo"></div>
+    </div>
+  </ion-buttons>
+  <h2>Registro</h2>
+</ion-toolbar>
+
+<ion-content>
+  <form>    
+    <ion-item lines="full">
+      <ion-label position="floating">Correo</ion-label>
+      <ion-input type="text" #email required></ion-input>
+    </ion-item> 
+
+    <ion-item lines="full">
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" #password required></ion-input>
+    </ion-item>
+
+    <ion-row>
+      <ion-col> 
+      <ion-button type="submit" (click)="signUp(email, password)" expand="block">Register</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
