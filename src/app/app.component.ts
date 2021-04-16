@@ -23,8 +23,13 @@ export class AppComponent {
       icon: 'film'
     },
     {
-      title: 'Settings',
-      url: '/settings',
+      title: 'Registro',
+      url: '/registration',
+      icon: 'settings'
+    },
+    {
+      title: 'Login',
+      url: '/login',
       icon: 'settings'
     }
   ];
