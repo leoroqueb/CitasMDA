@@ -3,18 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { AngularFireModule } from '@angular/fire'
+import { firebaseConfig } from '../environments/environment'
+import { AngularFireAuthModule } from '@angular/fire/auth'
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-
-import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -22,17 +18,15 @@ import { environment } from '../environments/environment';
   ],
   entryComponents: [],
   imports: [
-    BrowserModule, 
-    IonicModule.forRoot(), 
+    BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig), 
+    AngularFireAuthModule, 
+    IonicModule.forRoot(),
     AppRoutingModule],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     SplashScreen,
     StatusBar,
-    // AngularFireModule.initializeApp(environment.firebaseConfig),
-    // AngularFireAuthModule,
-    // AngularFireDatabaseModule,
-    // AngularFirestoreModule
   ],
   bootstrap: [AppComponent],
 })
