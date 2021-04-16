@@ -10,9 +10,42 @@
 
   <div class="container">
 
+    <div class="login">
+      <div class="container">
+        <div class="center">
+          <h1 class="apple">¡Hola!</h1>
+          <p>Accede para ver tus citas</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="formulario">
+      <form (ngSubmit)="onSubmit()">
+        <ion-item>
+          <!--<ion-label>Nombre</ion-label>-->
+          <ion-input type="text" [(ngModel)]="login.title" name="title" placeholder="Nombre"></ion-input>
+        </ion-item>
+        <ion-item>
+          <!--<ion-label>Contraseña</ion-label>-->
+          <ion-input type="password" [(ngModel)]="login.password" name="password" placeholder="Contraseña"></ion-input>
+        </ion-item>
+        <button ion-button type="submit" block>Add Todo</button>
+      </form>
+    </div>
 
     <div class="blockwhite" (click)="registerAnimation()">
       <p>¿No tienes cuenta?</p>
+
+      <div id="textAnimation" style="display: none">
+        Regístrate y
+        <div id=flip>
+          <div><div>Solicita</div></div>
+          <div><div>Organiza</div></div>
+          <div><div>gestiona</div></div>
+        </div>
+        tus citas
+      </div>
+
     </div>
   </div>
 
