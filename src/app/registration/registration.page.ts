@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../providers/auth.service';
 import { Refactor } from '../refactor/refactor.service';
 import * as $ from 'jquery';
+import { UsuariosI } from '../models/users.model';
+import { UsuariosService } from '../providers/usuarios.service';
 
 @Component({
   selector: 'app-registration',
@@ -21,6 +23,8 @@ export class RegistrationPage implements OnInit {
   campos = {
     email: '',
     password: '',
+    nombre: '',
+    apellidos: '',
     genero: '',
     direccion: '',
     telefono: '',
@@ -29,15 +33,39 @@ export class RegistrationPage implements OnInit {
   };
   constructor(
     private router: Router,
-    private refactor: Refactor,
     private authService: AuthService,
+    private userService: UsuariosService,
+    private refactor: Refactor
   ) { }
 
   ngOnInit(){}
 
   signUp(){
-    console.log(this.campos);
-    //this.authService.registerUser(email.value, password.value);
+    let userProfile: UsuariosI = {
+      direccion: this.campos.direccion,
+      apellidos: this.campos.apellidos,
+      dni: this.campos.dni,
+      email: this.campos.email,
+      genero: this.campos.genero,
+      nombre: this.campos.nombre,
+      ss: this.campos.ss,
+      telefono: this.campos.telefono
+    } 
+    
+    this.authService.registerUser(this.campos.email, this.campos.password)
+    .then(() => {
+      this.userService.registerData(userProfile)
+      .then(() =>{
+        this.refactor.presentToast("Cuenta creada correctamente");
+        this.router.navigateByUrl('home');
+      })
+      .catch((err) => this.refactor.presentToast("ERROR: " + err));
+    })
+    .catch(err => this.refactor.presentToast("ERROR: " + err));
+  }
+
+  setGender(ev){
+    this.campos.genero = ev.detail.value;
   }
 
   next(){
@@ -47,7 +75,7 @@ export class RegistrationPage implements OnInit {
       this.forms.form2 = false;
       this.forms.form3 = true;
       $('#progressbar').val('1');
-      $('#subtitle').text('Y ya hemos terminado');
+      $('#subtitle').text('¡Listo!');
       this.register = true;
     }
 

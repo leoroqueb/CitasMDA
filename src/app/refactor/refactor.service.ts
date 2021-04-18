@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { UsuariosI } from '../models/users.model';
 @Injectable({
     providedIn: 'root'
@@ -6,25 +7,15 @@ import { UsuariosI } from '../models/users.model';
 export class Refactor {
     user: UsuariosI;
     constructor(
-       
+       public toastController: ToastController
     ){}
-    account: {
-        email: string;
-        password: string;
-    }
 
-    setAccountInfo(email: string, password: string){
-        this.account = {
-            email: email,
-            password: password
-        }
-    }
 
-    
-    getAccountInfo(){
-        return this.account;
-    }
-
-    
-
+    async presentToast(msg: string) {
+        const toast = await this.toastController.create({
+          message: msg,
+          duration: 2000
+        });
+        toast.present();
+      }
 }
