@@ -14,8 +14,8 @@
         </ion-buttons>
       </ion-toolbar>
 
-      <div class="welcome">
-        <strong>Tus citas</strong>
+      <div class="welcome" *ngIf="myData">
+        <strong>Bienvenido/a, {{myData.nombre}}</strong>
       </div>
     </div>
 

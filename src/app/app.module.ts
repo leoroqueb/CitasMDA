@@ -11,6 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
     AngularFireModule.initializeApp(firebaseConfig), 
     AngularFireAuthModule, 
     IonicModule.forRoot(),
-    
+    CommonModule,
     AppRoutingModule],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
