@@ -15,12 +15,12 @@ export class AppComponent {
     {
       title: 'Inicio',
       url: '/home',
-      icon: 'easel'
+      icon: 'home'
     },
     {
       title: 'Citas',
       url: '/citas',
-      icon: 'film'
+      icon: 'calendar'
     },
     {
       title: 'Registro',
