@@ -9,41 +9,51 @@ import { AuthService } from '../providers/auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  open = false;
   login = {
-    email: "",
-    password: ""
+    email: '',
+    password: ''
   };
   constructor(
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
-    $('body').on( 'click', function(e) {
-      if(!$(e.target).hasClass('blockwhite')
-        && !$(e.target).parent().hasClass('blockwhite')
-        && !$(e.target).parent().parent().hasClass('blockwhite')){
-        console.log('heyyy');
-        /*$('.blockwhite').css('height', '45%');*/
-        $('#textAnimation').css('display', 'none');
-        $('.blockwhite').removeClass('animationUp').addClass('animationDown');
 
-      }
-      /*console.log('CLICK FUERA');
-      $('.blockwhite').removeClass('animationUp').addClass('animationDown');*/
-    });
-  }
+      $('body').on('click', (e) => {
+        if (!$(e.target).hasClass('blockwhite')
+          && !$(e.target).parent().hasClass('blockwhite')
+          && !$(e.target).parent().parent().hasClass('blockwhite')
+          && this.open) {
+
+          $('.blockwhite').removeClass('animationUp').addClass('animationDown');
+          $('.text > p').text('¿No tienes cuenta todavía?');
+          $('.textEffect').addClass('ion-hide');
+
+        }
+
+      });
+
+    }
 
   registerAnimation(){
     $('.blockwhite').removeClass('animationDown').addClass('animationUp');
-    $('.blockwhite > p').text('¿A qué esperas?');
-    $('#textAnimation').css('display', 'block');
+    $('.text > p').text('¿A qué esperas?');
+    $('.textEffect').removeClass('ion-hide');
+    this.open = true;
+  }
+
+  closeAnimation(){
+    $('#textAnimation').css('display', 'none');
+    $('.blockwhite').removeClass('animationUp').addClass('animationDown');
   }
 
   logInUser(){
     this.authService.loginUser(this.login.email, this.login.password )
     .then(() =>{
-      alert('Login correcto');
+      /*alert('Login correcto');*/
       this.router.navigate(['home']);
     })
     .catch(err => console.log(err));
