@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore'
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class AuthService {
   constructor(
     public afireauth: AngularFireAuth, 
     private afs: AngularFirestore,
+    private router: Router
   ) { }
 
     //REGISTRO USUARIO CON EMAIL Y CONTRASEÑA
@@ -48,5 +50,10 @@ export class AuthService {
       emailVerified: user.emailVerified
     };
     return userRef.set(userProfileDocument, {merge: true});
+  }
+
+  async logOut(){
+    this.router.navigate(['login']);
+    this.afireauth.signOut();
   }
 }
