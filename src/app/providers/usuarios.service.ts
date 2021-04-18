@@ -16,6 +16,6 @@ export class UsuariosService {
   }
 
   registerData(user: UsuariosI): Promise<void>{
-    return this.userCollection.doc(user.dni).set(user);
+    return this.userCollection.doc(user.email).set(user);
   }
 }

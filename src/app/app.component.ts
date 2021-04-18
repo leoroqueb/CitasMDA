@@ -21,16 +21,6 @@ export class AppComponent {
       title: 'Citas',
       url: '/citas',
       icon: 'calendar'
-    },
-    {
-      title: 'Registro',
-      url: '/registration',
-      icon: 'settings'
-    },
-    {
-      title: 'Login',
-      url: '/login',
-      icon: 'settings'
     }
   ];
 
