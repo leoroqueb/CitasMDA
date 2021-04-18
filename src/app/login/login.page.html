@@ -29,12 +29,15 @@
           <!--<ion-label>Contraseña</ion-label>-->
           <ion-input type="password" [(ngModel)]="login.password" name="password" placeholder="Contraseña"></ion-input>
         </ion-item>
-        <button ion-button type="submit" block>Add Todo</button>
+        <ion-button color="success" type="submit">Entrar</ion-button>
       </form>
     </div>
 
     <div class="blockwhite" (click)="registerAnimation()">
-      <p>¿No tienes cuenta?</p>
+      <div class="text">
+        <p>¿No tienes cuenta todavía?</p>
+      </div>
+
 
       <div id="textAnimation" style="display: none">
         <ion-button routerLink= '/registration' fill="clear" shape="round">

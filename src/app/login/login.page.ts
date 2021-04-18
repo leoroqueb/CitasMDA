@@ -19,11 +19,23 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    $('body').on( 'click', function(e) {
+      if(!$(e.target).hasClass('blockwhite')
+        && !$(e.target).parent().hasClass('blockwhite')
+        && !$(e.target).parent().parent().hasClass('blockwhite')){
+        console.log('heyyy');
+        /*$('.blockwhite').css('height', '45%');*/
+        $('#textAnimation').css('display', 'none');
+        $('.blockwhite').removeClass('animationUp').addClass('animationDown');
 
+      }
+      /*console.log('CLICK FUERA');
+      $('.blockwhite').removeClass('animationUp').addClass('animationDown');*/
+    });
   }
 
   registerAnimation(){
-    $('.blockwhite').addClass('animationUp');
+    $('.blockwhite').removeClass('animationDown').addClass('animationUp');
     $('.blockwhite > p').text('¿A qué esperas?');
     $('#textAnimation').css('display', 'block');
   }
@@ -31,7 +43,7 @@ export class LoginPage implements OnInit {
   logInUser(){
     this.authService.loginUser(this.login.email, this.login.password )
     .then(() =>{
-      alert("Entro correcto");
+      alert('Login correcto');
       this.router.navigate(['home']);
     })
     .catch(err => console.log(err));
