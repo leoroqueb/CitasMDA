@@ -25,8 +25,6 @@ export class HomePage implements OnInit{
     .subscribe(data =>  this.myData = data);
   }
 
-  signOut(){
-    this.authService.logOut();
-  }
+  
 
 }
