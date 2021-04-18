@@ -13,7 +13,7 @@
   <div class="fondo">
     <div class="textos">
       <p>¡Bienvenido!</p>
-      <p id="subtitle">¡Registrate para comenzar!</p>
+      <p id="subtitle">¡Regístrate para comenzar!</p>
       <ion-progress-bar id="progressbar" value="0"></ion-progress-bar>
     </div>
   </div>
@@ -33,8 +33,34 @@
 
     <div class="formulario2" [ngClass]="{'ion-hide': !this.forms.form2}">
       <ion-item lines="full">
+        <ion-label position="floating">DNI</ion-label>
+        <ion-input type="text" [(ngModel)]="campos.dni" name="dni" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input type="text" [(ngModel)]="campos.nombre" name="nombre" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Apellidos</ion-label>
+        <ion-input type="text" [(ngModel)]="campos.apellidos" name="apellidos" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Seguridad Social</ion-label>
+        <ion-input type="text" [(ngModel)]="campos.ss" name="ss" required></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="formulario3" [ngClass]="{'ion-hide': !this.forms.form3}">
+      <ion-item lines="full">
         <ion-label position="floating">Género</ion-label>
-        <ion-input type="text" [(ngModel)]="campos.genero" name="genero" required></ion-input>
+        <ion-select value={gender} placeholder="Selecciona" (ionChange)="setGender($event)" required>
+          <ion-select-option value="hombre">Hombre</ion-select-option>
+          <ion-select-option value="mujer">Mujer</ion-select-option>
+          <ion-select-option value="otro">Otro</ion-select-option>
+        </ion-select>
       </ion-item>
 
       <ion-item lines="full">
@@ -47,19 +73,6 @@
         <ion-input type="text" [(ngModel)]="campos.telefono" name="telefono" required></ion-input>
       </ion-item>
     </div>
-
-    <div class="formulario3" [ngClass]="{'ion-hide': !this.forms.form3}">
-      <ion-item lines="full">
-        <ion-label position="floating">DNI</ion-label>
-        <ion-input type="text" [(ngModel)]="campos.dni" name="dni" required></ion-input>
-      </ion-item>
-
-      <ion-item lines="full">
-        <ion-label position="floating">Seguridad Social</ion-label>
-        <ion-input type="text" [(ngModel)]="campos.ss" name="ss" required></ion-input>
-      </ion-item>
-    </div>
-
 
     <ion-row>
       <ion-col>

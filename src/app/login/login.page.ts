@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { AuthService } from '../providers/auth.service';
+import { Refactor } from '../refactor/refactor.service';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +17,9 @@ export class LoginPage implements OnInit {
   };
   constructor(
     private authService: AuthService,
-    private router: Router
-  ) {
-  }
+    private router: Router,
+    private refactor: Refactor
+  ) { }
 
   ngOnInit() {
 
@@ -53,7 +54,7 @@ export class LoginPage implements OnInit {
   logInUser(){
     this.authService.loginUser(this.login.email, this.login.password )
     .then(() =>{
-      /*alert('Login correcto');*/
+      this.refactor.presentToast('¡Bienvenido/a de nuevo!');
       this.router.navigate(['home']);
     })
     .catch(err => console.log(err));
