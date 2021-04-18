@@ -22,6 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
     AngularFireModule.initializeApp(firebaseConfig), 
     AngularFireAuthModule, 
     IonicModule.forRoot(),
+    
     AppRoutingModule],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

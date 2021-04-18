@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { AuthService } from '../providers/auth.service'
 
@@ -14,6 +15,7 @@ export class LoginPage implements OnInit {
   };
   constructor(
     private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -28,7 +30,10 @@ export class LoginPage implements OnInit {
 
   logInUser(){
     this.authService.loginUser(this.login.email, this.login.password )
-    .then(() => alert("Entro correcto"))
+    .then(() =>{
+      alert("Entro correcto");
+      this.router.navigate(['home']);
+    })
     .catch(err => console.log(err));
   }
 
