@@ -11,6 +11,15 @@ $purple: #5F2967;
   align-items: center;
   justify-content: center;
 
+  .textos {
+    width: 100%;
+    ion-progress-bar{
+      bottom: 0;
+      margin: 0;
+      position: absolute;
+    }
+  }
+
   p{
     text-align: center;
     color: white;
@@ -44,3 +53,4 @@ $purple: #5F2967;
       }
     }
   }
+

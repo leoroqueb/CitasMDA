@@ -13,25 +13,58 @@
   <div class="fondo">
     <div class="textos">
       <p>¡Bienvenido!</p>
-      <p>¡Registrate para comenzar!</p>
+      <p id="subtitle">¡Registrate para comenzar!</p>
+      <ion-progress-bar id="progressbar" value="0"></ion-progress-bar>
     </div>
-
   </div>
 
   <form>
-    <ion-item lines="full">
-      <ion-label position="floating">Correo</ion-label>
-      <ion-input type="email" #email required></ion-input>
-    </ion-item>
+    <div class="formulario1" [ngClass]="{'ion-hide': !this.forms.form1}">
+      <ion-item lines="full">
+        <ion-label position="floating">Correo</ion-label>
+        <ion-input type="email" [(ngModel)]="campos.email" name="email" required></ion-input>
+      </ion-item>
 
-    <ion-item lines="full">
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" #password required></ion-input>
-    </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="campos.password" name="password" required></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="formulario2" [ngClass]="{'ion-hide': !this.forms.form2}">
+      <ion-item lines="full">
+        <ion-label position="floating">Género</ion-label>
+        <ion-input type="text" [(ngModel)]="campos.genero" name="genero" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Dirección</ion-label>
+        <ion-input type="text" [(ngModel)]="campos.direccion" name="direccion" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Teléfono</ion-label>
+        <ion-input type="text" [(ngModel)]="campos.telefono" name="telefono" required></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="formulario3" [ngClass]="{'ion-hide': !this.forms.form3}">
+      <ion-item lines="full">
+        <ion-label position="floating">DNI</ion-label>
+        <ion-input type="text" [(ngModel)]="campos.dni" name="dni" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Seguridad Social</ion-label>
+        <ion-input type="text" [(ngModel)]="campos.ss" name="ss" required></ion-input>
+      </ion-item>
+    </div>
+
 
     <ion-row>
       <ion-col>
-      <ion-button type="submit" (click)="signUp(email, password)" expand="block">Register</ion-button>
+      <ion-button type="submit" *ngIf="register" (click)="signUp()" expand="block">Register</ion-button>
+      <ion-button type="submit" *ngIf="!register" (click)="next()" expand="block">Continuar</ion-button>
       </ion-col>
     </ion-row>
   </form>
