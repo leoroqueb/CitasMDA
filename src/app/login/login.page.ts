@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { AuthService } from '../providers/auth.service';
+import { CitasService } from '../providers/citas.service';
 import { Refactor } from '../refactor/refactor.service';
 
 @Component({
@@ -18,11 +19,12 @@ export class LoginPage implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private refactor: Refactor
+    private refactor: Refactor,
+    private pruebaAforo: CitasService
   ) { }
 
   ngOnInit() {
-
+      this.prueba();
       $('body').on('click', (e) => {
         if (!$(e.target).hasClass('blockwhite')
           && !$(e.target).parent().hasClass('blockwhite')
@@ -58,6 +60,13 @@ export class LoginPage implements OnInit {
       this.router.navigate(['home']);
     })
     .catch(err => console.log(err));
+  }
+
+  prueba(){
+    this.pruebaAforo.getCapacityInDay("9:20").subscribe(data => {
+      console.log("Aforo actual", data.actual);
+      console.log("Aforo máximo", data.maximo);
+    });
   }
 
 }
