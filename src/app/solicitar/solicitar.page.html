@@ -1,9 +1,62 @@
-<ion-header>
+<!--<ion-header>
   <ion-toolbar>
     <ion-title>solicitar</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header>-->
 
-<ion-content>
+<ion-content [fullscreen]="true">
+
+  <div id="container">
+
+    <div id="userInfo">
+      <div class="userData">
+        <p>Imagen</p>
+        <p>Nombre</p>
+        <p>Nº ss</p>
+        <p>Dirección</p>
+      </div>
+    </div>
+
+    <div id="solicitarCita">
+
+      <div class="solicitarFecha">Fecha</div>
+
+      <ion-item>
+        <ion-label>Elige día</ion-label>
+        <ion-datetime
+          id="fecha"
+          [(ngModel)]="daySelected"
+          [dayShortNames]="customDayShortNames"
+          [min]="minDate"
+          displayFormat="DD/MM/YYYY"
+          pickerFormat="DD/MM/YYYY"
+          monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+        ></ion-datetime>
+      </ion-item>
+
+      <div class="solicitarFecha">Hora</div>
+
+      <ion-item>
+        <ion-label>Elige hora</ion-label>
+        <ion-datetime
+          id="hora"
+          [(ngModel)]="hourSelected"
+          displayFormat="HH:mm"
+          [minuteValues]="minuteValues"
+          [hourValues]="hourValues"
+
+        ></ion-datetime>
+      </ion-item>
+
+      <ion-button shape="round" expand="block" (click)="onSubmit()">
+        <ion-icon slot="start" name="star"></ion-icon>
+        Solicitar cita
+      </ion-button>
+
+    </div>
+
+
+  </div>
+
 
 </ion-content>
