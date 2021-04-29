@@ -10,18 +10,28 @@
 
     <div id="userInfo">
       <div class="userData">
-        <p>Imagen</p>
-        <p>Nombre</p>
-        <p>Nº ss</p>
-        <p>Dirección</p>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="avatar">
+              <img src="https://i.musicaimg.com/letras/resmax/bryant-myers.jpg" alt="Avatar">
+            </ion-col>
+            <ion-col class="infoUser">
+              <p><ion-icon name="person-outline"></ion-icon> Juan José</p>
+              <p><ion-icon name="card-outline"></ion-icon> Nº ss</p>
+              <p><ion-icon name="location-outline"></ion-icon> Dirección</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
       </div>
     </div>
 
     <div id="solicitarCita">
 
-      <div class="solicitarFecha">Fecha</div>
+      <div class="solicitarFecha">Seleccione la fecha</div>
 
-      <ion-item>
+      <ion-item class="rounded">
         <ion-label>Elige día</ion-label>
         <ion-datetime
           id="fecha"
@@ -34,9 +44,9 @@
         ></ion-datetime>
       </ion-item>
 
-      <div class="solicitarFecha">Hora</div>
+      <div class="solicitarFecha">Selecciona la hora</div>
 
-      <ion-item>
+      <ion-item class="rounded">
         <ion-label>Elige hora</ion-label>
         <ion-datetime
           id="hora"
@@ -49,7 +59,7 @@
       </ion-item>
 
       <ion-button shape="round" expand="block" (click)="onSubmit()">
-        <ion-icon slot="start" name="star"></ion-icon>
+        <ion-icon  slot="start" name="receipt-outline"></ion-icon>
         Solicitar cita
       </ion-button>
 
