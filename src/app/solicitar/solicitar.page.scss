@@ -1,0 +1,74 @@
+$purple: #5F2967;
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+#container{
+  background-color: #EEF4FF;
+  height: 100%;
+
+}
+
+#userInfo{
+  background-color: white;
+  height: 12em;
+  box-shadow: 0 4px 8px -4px rgba(50, 50, 50, 0.4);
+  /*display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;*/
+
+  .userData{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    .avatar{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    img{
+      width: 60px;
+      height: auto;
+      border-radius: 30px;
+    }
+    .infoUser{
+      font-family: 'Nunito', sans-serif;
+      ion-icon{
+        color: #929292;
+        margin-top: 4px;
+      }
+    }
+  }
+}
+
+#solicitarCita{
+  margin: 1.5em;
+
+  .rounded{
+    border-radius: 20px;
+  }
+
+  .solicitarFecha{
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: gray;
+
+    &:not(:nth-child(1)){
+      margin-top: 1em;
+    }
+  }
+
+  ion-item{
+    margin-top: 1em;
+    ion-label{
+      font-family: 'Nunito', sans-serif;
+    }
+  }
+
+
+
+  ion-button{
+    margin-top: 1em;
+  }
+}

@@ -27,9 +27,14 @@ const routes: Routes = [
     path: 'registration',
     loadChildren: () => import('./registration/registration.module').then( m => m.RegistrationPageModule),
     canActivate: [ AngularFireAuthGuard ],
-    data: { authGuardPipe: redirectLoggedInToHome }  
+    data: { authGuardPipe: redirectLoggedInToHome }
   },
-  
+  {
+    path: 'solicitar',
+    loadChildren: () => import('./solicitar/solicitar.module').then( m => m.SolicitarPageModule)
+  },
+
+
 ];
 
 @NgModule({
