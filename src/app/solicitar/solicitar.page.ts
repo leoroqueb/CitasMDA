@@ -4,6 +4,7 @@ import {ToastController} from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CitasService } from '../providers/citas.service';
 import { FormGroup, FormBuilder } from "@angular/forms";
+import { UsuariosI } from '../models/users.model';
 
 
 @Component({
@@ -45,19 +46,6 @@ export class SolicitarPage implements OnInit {
   /**
    * Método que tras validar las fechas, envía al backend los datos
    */
-<<<<<<< HEAD
-  onSubmit(){
-    if (!this.citaForm.valid) {
-      this.validator();
-      return false;
-    } else {
-      this.citasService.createCita(this.citaForm.value).then(res => {
-        console.log(res)
-        this.citaForm.reset();
-        this.router.navigate(['/citas']);
-      }).catch(error => console.log(error));
-
-=======
   onSubmit(user: UsuariosI){
     if(this.validator()){
       const fecha = this.daySelected.toString().split('T')[0];
@@ -76,7 +64,6 @@ export class SolicitarPage implements OnInit {
       }else{
 
       }
->>>>>>> dc82f87... Merge branch 'develop' of https://github.com/leoroqueb/CitasMDA into feature/aforo
     }
   }
 
