@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable, Subscription } from 'rxjs';
 import { UsuariosI } from '../models/users.model';
 import { CitaI, AforoI } from '../models/citas'
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -14,6 +15,7 @@ export class CitasService {
   constructor(
     private dbHorarios: AngularFirestore,
     private dbCitas: AngularFirestore,
+    private router: Router
   ) {
     this.horariosConnection = this.dbHorarios.collection(`horarios`);
     this.citasConnection = this.dbCitas.collection(`citas`);
@@ -81,12 +83,12 @@ export class CitasService {
 
 
   // Update
-  updateCita(id, cita: CitaI) {
+  updateCita(dni, cita: CitaI) {
 
   }
 
   // Delete
-  deleteCita(id: number) {
-    
+  deleteCita(dni) {
+    this.citasConnection.doc<CitaI[]>(dni).delete();
   }
 }

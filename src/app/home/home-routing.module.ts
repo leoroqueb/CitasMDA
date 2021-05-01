@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('../solicitar/solicitar.module').then( m => m.SolicitarPageModule)
   },
   {
-    path: 'solicitar/:id',
+    path: 'solicitar/:dni',
     loadChildren: () => import('../solicitar/solicitar.module').then( m => m.SolicitarPageModule)
   }
 ];

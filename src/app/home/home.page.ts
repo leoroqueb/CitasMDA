@@ -5,6 +5,9 @@ import { AuthService } from '../providers/auth.service';
 import { UsuariosService } from '../providers/usuarios.service';
 import { CitaI } from '../models/citas';
 import { CitasService } from '../providers/citas.service';
+import { Router } from '@angular/router';
+import {ToastController} from '@ionic/angular';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-home',
@@ -15,12 +18,14 @@ import { CitasService } from '../providers/citas.service';
 export class HomePage implements OnInit{
   myDataConnection: Subscription  
   myData: UsuariosI;
+  Citas: any = [];
   constructor(
     private authService: AuthService,
     private userService: UsuariosService,
-    private citasService: CitasService
+    private citasService: CitasService,
+    private router: Router,
+    public toastController: ToastController,
   ) {
-
   }
 
   async ngOnInit(){
@@ -28,21 +33,39 @@ export class HomePage implements OnInit{
       this.myData = data;
 
       this.citasService.getAppointments(this.myData.dni).subscribe(data => {
-        let Citas: CitaI[] = [];
         if(data != undefined){
-          Citas = data;
-        };
+          this.Citas.push(data);
+          console.log(this.Citas);
+        } else {
+          this.Citas = null;
+        }
       });
 
     });
   }
 
-  deleteCita(id) {
-    console.log(id)
-    if (window.confirm('Do you really want to delete?')) {
-      this.citasService.deleteCita(id)
-    }
-  }
-  
+  deleteCita(dni) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Vas a proceder a eliminar una cita",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log('eliminando cita', dni);
+        this.citasService.deleteCita(dni)
+        this.router.navigate(['home']);
+        Swal.fire(
+          'Eliminada',
+          'Tu cita ha sido eliminada.',
+          'success'
+        )
+      }
+    })
+  }  
 
 }
