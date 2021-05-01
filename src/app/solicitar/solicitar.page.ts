@@ -4,9 +4,8 @@ import {ToastController} from '@ionic/angular';
 import { UsuariosI } from '../models/users.model';
 import { UsuariosService } from '../providers/usuarios.service';
 import { CitasService } from '../providers/citas.service';
-
-
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { CitaI } from '../models/citas'
 
 @Component({
   selector: 'app-solicitar',
@@ -24,17 +23,30 @@ export class SolicitarPage implements OnInit {
   daySelected = '';
   hourSelected = '';
   userInfo: UsuariosI;
-
-  id: any;
+  updating: boolean;
+  dni: any;
+  Cita: CitaI[];
 
   constructor(
     public toastController: ToastController,
     private userService: UsuariosService,
     private citasService: CitasService,
-    ) { }
+    private actRoute: ActivatedRoute,
+    private router: Router
+    ) {
+      this.dni = this.actRoute.snapshot.paramMap.get('dni');
+     }
 
   ngOnInit() {
     this.showUserInfo();
+    if (this.dni !== null) { // Editando
+      this.updating = true; 
+      this.citasService.getAppointments(this.dni).subscribe(data => {
+        this.Cita = data;
+        this.daySelected = this.Cita['fecha'];
+        this.hourSelected = this.Cita['hora'];
+      });
+    }
   }
   
   
@@ -49,7 +61,7 @@ export class SolicitarPage implements OnInit {
   /**
    * Método que tras validar las fechas, envía al backend los datos
    */
-  onSubmit(user: UsuariosI){
+  onSubmit(){
     if(this.validator()){
       const fecha = this.daySelected.toString().split('T')[0];
       let hora = this.hourSelected.toString().split('T')[1];
@@ -62,10 +74,11 @@ export class SolicitarPage implements OnInit {
       const fechas = fecha.split('-');
       const fechaModificada = fechas.reverse().join('-');
       if(this.checkCapacityAvailable(fechaModificada, hora)){
-        this.citasService.addAppointment(user, fechaModificada, hora);
+        this.citasService.addAppointment(this.userInfo, fechaModificada, hora);
       }else{
 
       }
+      this.router.navigate(['home']);
     }
   }
 

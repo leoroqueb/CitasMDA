@@ -1,8 +1,12 @@
-<!--<ion-header>
+<ion-header>
   <ion-toolbar>
-    <ion-title>solicitar</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="!updating">Solicitando cita</ion-title>
+    <ion-title *ngIf="updating">Editando cita</ion-title>
   </ion-toolbar>
-</ion-header>-->
+</ion-header>
 
 <ion-content [fullscreen]="true">
 
@@ -12,7 +16,7 @@
       <div class="userData">
         <ion-grid>
           <ion-row>
-            <ion-col class="avatar">
+            <ion-col size="4" class="avatar">
               <img src="https://i.musicaimg.com/letras/resmax/bryant-myers.jpg" alt="Avatar">
             </ion-col>
             <div  *ngIf="userInfo">
@@ -60,9 +64,14 @@
         ></ion-datetime>
       </ion-item>
 
-      <ion-button shape="round" expand="block" (click)="onSubmit()">
+      <ion-button *ngIf="!updating" shape="round" expand="block" (click)="onSubmit()">
         <ion-icon  slot="start" name="receipt-outline"></ion-icon>
         Solicitar cita
+      </ion-button>
+
+      <ion-button *ngIf="updating" shape="round" expand="block" (click)="onSubmit()">
+        <ion-icon  slot="start" name="receipt-outline"></ion-icon>
+        Editar cita
       </ion-button>
 
     </div>
