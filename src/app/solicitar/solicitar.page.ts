@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import {ToastController} from '@ionic/angular';
+import { UsuariosI } from '../models/users.model';
+import { UsuariosService } from '../providers/usuarios.service';
+import { CitasService } from '../providers/citas.service';
 
 @Component({
   selector: 'app-solicitar',
@@ -17,29 +20,47 @@ export class SolicitarPage implements OnInit {
 
   daySelected = '';
   hourSelected = '';
+  userInfo: UsuariosI;
 
-  constructor(public toastController: ToastController) { }
+  constructor(
+    public toastController: ToastController,
+    private userService: UsuariosService,
+    private citasService: CitasService,
+    ) { }
 
   ngOnInit() {
+    this.showUserInfo();
+  }
+  
+  
+  showUserInfo(){
+    this.userService.getMyselfData().then(sus => {
+      sus.subscribe(data => {
+        this.userInfo = data;
+      })
+    })
   }
 
   /**
    * Método que tras validar las fechas, envía al backend los datos
    */
-  onSubmit(){
+  onSubmit(user: UsuariosI){
     if(this.validator()){
       const fecha = this.daySelected.toString().split('T')[0];
       let hora = this.hourSelected.toString().split('T')[1];
 
       hora = hora.split(':')[0] + ':' + hora.split(':')[1];
+      
 
       // [0] Año
       // [1] Mes
       // [2] Día
       const fechas = fecha.split('-');
+      const fechaModificada = fechas.reverse().join('-');
 
-      console.log(fechas);
+      this.citasService.addAppointment(user, fechaModificada, hora);
       //Hazme el backend putooooooooooooooooo suck my dick nigga u are shit mdfker
+      //Hazme lo del aforoo pinche jueputa gonorrea mamawevo
     }
   }
 

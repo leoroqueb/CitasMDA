@@ -21,8 +21,9 @@ export class HomePage implements OnInit{
   }
 
   async ngOnInit(){
-    this.myDataConnection = (await this.userService.getMyselfData()).asObservable()
-    .subscribe(data =>  this.myData = data);
+    this.myDataConnection = (await this.userService.getMyselfData()).subscribe(data => {
+      this.myData = data;
+    })
   }
 
   

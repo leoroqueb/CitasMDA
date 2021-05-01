@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore'
 import { UsuariosI } from '../models/users.model';
-import { Subject, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ import { Subject, Subscription } from 'rxjs';
 export class UsuariosService {
   usersCollection: AngularFirestoreCollection<UsuariosI>;
 
-  userConnection: Subscription
+  userConnection: Observable<UsuariosI>
   constructor(
     private afs: AngularFirestore,
     private afauth: AngularFireAuth
@@ -27,11 +27,8 @@ export class UsuariosService {
     return this.usersCollection.doc(usuario.email).update(usuario);
   }
 
-  async getMyselfData(): Promise<Subject<UsuariosI>>{
-    var subject = new Subject<UsuariosI>();
-    this.userConnection = this.usersCollection.doc<UsuariosI>((await this.afauth.currentUser).email).valueChanges().subscribe(data => {
-      subject.next(data);
-    });
-    return subject;
+  async getMyselfData(): Promise<Observable<UsuariosI>>{
+    this.userConnection = this.usersCollection.doc<UsuariosI>((await this.afauth.currentUser).email).valueChanges();
+    return this.userConnection;
   }
 }

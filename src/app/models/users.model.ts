@@ -13,9 +13,11 @@ export interface CitasI {
     dniUsuarioAsociado: string;
     estado: string;
     fecha: string;
+    hora: string;
     medicoAsociado: string;
     lugar: string;
 }
+
 
 export interface HorariosI {
     hora: string;
