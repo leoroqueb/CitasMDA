@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import {ToastController} from '@ionic/angular';
+import { Router } from '@angular/router';
+import { CitasService } from '../providers/citas.service';
+import { FormGroup, FormBuilder } from "@angular/forms";
+
 
 @Component({
   selector: 'app-solicitar',
@@ -18,28 +22,40 @@ export class SolicitarPage implements OnInit {
   daySelected = '';
   hourSelected = '';
 
-  constructor(public toastController: ToastController) { }
+  citaForm: FormGroup;
+
+  constructor(
+    public toastController: ToastController,
+    private router: Router,
+    private citasService: CitasService,
+    public fb: FormBuilder
+    ) { }
 
   ngOnInit() {
+    this.citaForm = this.fb.group({
+      dni_usuario: [''],
+      estado: [''],
+      fecha: ['2021-10-01'],
+      hora: ['09:20'],
+      medico: [''],
+      lugar: ['']
+    })
   }
 
   /**
    * Método que tras validar las fechas, envía al backend los datos
    */
   onSubmit(){
-    if(this.validator()){
-      const fecha = this.daySelected.toString().split('T')[0];
-      let hora = this.hourSelected.toString().split('T')[1];
+    if (!this.citaForm.valid) {
+      this.validator();
+      return false;
+    } else {
+      this.citasService.createCita(this.citaForm.value).then(res => {
+        console.log(res)
+        this.citaForm.reset();
+        this.router.navigate(['/citas']);
+      }).catch(error => console.log(error));
 
-      hora = hora.split(':')[0] + ':' + hora.split(':')[1];
-
-      // [0] Año
-      // [1] Mes
-      // [2] Día
-      const fechas = fecha.split('-');
-
-      console.log(fechas);
-      //Hazme el backend putooooooooooooooooo suck my dick nigga u are shit mdfker
     }
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormGroup, FormBuilder } from "@angular/forms";
-import { CitasService } from '../citas.service';
+import { CitasService } from '../providers/citas.service';
 
 @Component({
   selector: 'app-edit-cita',

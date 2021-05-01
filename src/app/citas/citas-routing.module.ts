@@ -9,12 +9,12 @@ const routes: Routes = [
     component: CitasPage
   },
   {
-    path: 'add-citas',
-    loadChildren: () => import('./add-cita/add-cita.module').then( m => m.AddCitaPageModule)
+    path: 'solicitar',
+    loadChildren: () => import('../solicitar/solicitar.module').then( m => m.SolicitarPageModule)
   },
   {
     path: 'edit-cita/:id',
-    loadChildren: () => import('./edit-cita/edit-cita.module').then( m => m.EditCitaPageModule)
+    loadChildren: () => import('../edit-cita/edit-cita.module').then( m => m.EditCitaPageModule)
   }
 ];
 

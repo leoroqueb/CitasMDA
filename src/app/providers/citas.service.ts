@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { CitaI } from './citas'
+import { CitaI } from '../models/citas'
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
 
 @Injectable({
