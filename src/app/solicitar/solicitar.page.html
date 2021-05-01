@@ -31,38 +31,6 @@
 
       <div class="solicitarFecha">Seleccione la fecha</div>
 
-<<<<<<< HEAD
-      <ion-item class="rounded">
-        <ion-label>Elige día</ion-label>
-        <ion-datetime
-          id="fecha"
-          [(ngModel)]="daySelected"
-          [dayShortNames]="customDayShortNames"
-          [min]="minDate"
-          displayFormat="DD/MM/YYYY"
-          pickerFormat="DD/MM/YYYY"
-          monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
-        ></ion-datetime>
-      </ion-item>
-
-      <div class="solicitarFecha">Selecciona la hora</div>
-
-      <ion-item class="rounded">
-        <ion-label>Elige hora</ion-label>
-        <ion-datetime
-          id="hora"
-          [(ngModel)]="hourSelected"
-          displayFormat="HH:mm"
-          [minuteValues]="minuteValues"
-          [hourValues]="hourValues"
-
-        ></ion-datetime>
-      </ion-item>
-
-      <ion-button shape="round" expand="block" (click)="onSubmit()">
-        <ion-icon  slot="start" name="receipt-outline"></ion-icon>
-        Solicitar cita
-=======
       <form [formGroup]="citaForm" (ngSubmit)="onSubmit()">
         <ion-item class="rounded">
           <ion-label>Elige día</ion-label>
@@ -93,7 +61,6 @@
         <ion-button shape="round" expand="block" type="submit">
           <ion-icon  slot="start" name="receipt-outline"></ion-icon>
           Solicitar cita
->>>>>>> dc82f87... Merge branch 'develop' of https://github.com/leoroqueb/CitasMDA into feature/aforo
       </ion-button>
 
     </form>

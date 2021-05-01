@@ -1,12 +1,13 @@
 import { Time } from "@angular/common";
 
 export interface CitaI {
-    dniUsuarioAsociado: string;
+    id: number,
+    dni_usuario: string;
     estado: string;
-    fecha: string;
-    hora: string;
+    fecha: Date;
+    hora: Time;
+    medico: string;
     lugar: string;
-    medicoAsociado: string;
 }
 
 export interface HorariosI {
