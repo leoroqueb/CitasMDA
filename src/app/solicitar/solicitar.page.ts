@@ -37,10 +37,23 @@ export class SolicitarPage implements OnInit {
       // [1] Mes
       // [2] Día
       const fechas = fecha.split('-');
+<<<<<<< HEAD
 
       console.log(fechas);
       //Hazme el backend putooooooooooooooooo suck my dick nigga u are shit mdfker
+=======
+      const fechaModificada = fechas.reverse().join('-');
+      if(this.checkCapacityAvailable(fechaModificada, hora)){
+        this.citasService.addAppointment(user, fechaModificada, hora);
+      }else{
+
+      }
+>>>>>>> dc82f87... Merge branch 'develop' of https://github.com/leoroqueb/CitasMDA into feature/aforo
     }
+  }
+
+  checkCapacityAvailable(day: string, schedule: string): boolean{
+    return false;
   }
 
   /**

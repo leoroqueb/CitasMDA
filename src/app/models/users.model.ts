@@ -7,6 +7,7 @@ export interface UsuariosI {
     email: string;
     genero: string;
     telefono: string;
+<<<<<<< HEAD
 }
 
 export interface CitasI {
@@ -25,4 +26,6 @@ export interface HorariosI {
 export interface AforoI {
     actual: number;
     maximo?: number;
+=======
+>>>>>>> dc82f87... Merge branch 'develop' of https://github.com/leoroqueb/CitasMDA into feature/aforo
 }

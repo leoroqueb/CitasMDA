@@ -14,6 +14,13 @@ export const firebaseConfig = {
   messagingSenderId: "398541909926",
   appId: "1:398541909926:web:9c8121935482c9babfe967",
   measurementId: "G-MG7FLR1YH2"
+/*   apiKey: "AIzaSyBegdL259VLuiEieOG-bMIHzMd20660Ge4",
+  authDomain: "mda-citas.firebaseapp.com",
+  databaseURL: "https://mda-citas-default-rtdb.firebaseio.com",
+  projectId: "mda-citas",
+  storageBucket: "mda-citas.appspot.com",
+  messagingSenderId: "985115300111",
+  appId: "1:985115300111:web:9db9b99f2208b67ebd6e7a" */
 }
 
 /*

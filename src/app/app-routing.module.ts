@@ -30,11 +30,12 @@ const routes: Routes = [
     data: { authGuardPipe: redirectLoggedInToHome }
   },
   {
-    path: 'solicitar',
-    loadChildren: () => import('./solicitar/solicitar.module').then( m => m.SolicitarPageModule)
+    path: 'citas',
+    loadChildren: () => import('./citas/citas.module').then( m => m.CitasPageModule)
   },
 
 
+  
 ];
 
 @NgModule({
