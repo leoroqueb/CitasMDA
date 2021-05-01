@@ -33,20 +33,9 @@ export class SolicitarPage implements OnInit {
     private citasService: CitasService,
     public fb: FormBuilder
     ) {
- /*      this.citasService.getAppointments(user.dni).subscribe(data => {
-        this.updateCitaForm.setValue(data);
-      }); */
      }
 
   ngOnInit() {
-    this.citaForm = this.fb.group({
-      dniUsuarioAsociado: [''],
-      estado: [''],
-      fecha: ['2021-10-01'],
-      hora: ['09:20'],
-      medico: [''],
-      lugar: ['']
-    })
   }
 
   /**

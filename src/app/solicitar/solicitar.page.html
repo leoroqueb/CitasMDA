@@ -31,39 +31,37 @@
 
       <div class="solicitarFecha">Seleccione la fecha</div>
 
-      <form [formGroup]="citaForm" (ngSubmit)="onSubmit()">
-        <ion-item class="rounded">
-          <ion-label>Elige día</ion-label>
-          <ion-datetime
-            id="fecha"
-            formControlName="fecha"
-            [dayShortNames]="customDayShortNames"
-            [min]="minDate"
-            displayFormat="DD/MM/YYYY"
-            monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
-          ></ion-datetime>
-        </ion-item>
+      <ion-item class="rounded">
+        <ion-label>Elige día</ion-label>
+        <ion-datetime
+          id="fecha"
+          [(ngModel)]="daySelected"
+          [dayShortNames]="customDayShortNames"
+          [min]="minDate"
+          displayFormat="DD/MM/YYYY"
+          pickerFormat="DD/MM/YYYY"
+          monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+        ></ion-datetime>
+      </ion-item>
 
-        <div class="solicitarFecha">Selecciona la hora</div>
+      <div class="solicitarFecha">Selecciona la hora</div>
 
-        <ion-item class="rounded">
-          <ion-label>Elige hora</ion-label>
-          <ion-datetime
-            id="hora"
-            displayFormat="hh:mm A" 
-            pickerFormat="HH:mm"
-            [minuteValues]="minuteValues"
-            [hourValues]="hourValues"
-            formControlName="hora"
-          ></ion-datetime>
-        </ion-item>
+      <ion-item class="rounded">
+        <ion-label>Elige hora</ion-label>
+        <ion-datetime
+          id="hora"
+          [(ngModel)]="hourSelected"
+          displayFormat="HH:mm"
+          [minuteValues]="minuteValues"
+          [hourValues]="hourValues"
 
-        <ion-button shape="round" expand="block" type="submit">
-          <ion-icon  slot="start" name="receipt-outline"></ion-icon>
-          Solicitar cita
+        ></ion-datetime>
+      </ion-item>
+
+      <ion-button shape="round" expand="block" (click)="onSubmit()">
+        <ion-icon  slot="start" name="receipt-outline"></ion-icon>
+        Solicitar cita
       </ion-button>
-
-    </form>
 
     </div>
 
