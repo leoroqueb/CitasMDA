@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import {ToastController} from '@ionic/angular';
-import { Router } from '@angular/router';
 import { CitasService } from '../providers/citas.service';
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { UsuariosI } from '../models/users.model';
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -24,17 +24,23 @@ export class SolicitarPage implements OnInit {
   hourSelected = '';
 
   citaForm: FormGroup;
+  updateCitaForm: FormGroup;
+  id: any;
 
   constructor(
     public toastController: ToastController,
     private router: Router,
     private citasService: CitasService,
     public fb: FormBuilder
-    ) { }
+    ) {
+ /*      this.citasService.getAppointments(user.dni).subscribe(data => {
+        this.updateCitaForm.setValue(data);
+      }); */
+     }
 
   ngOnInit() {
     this.citaForm = this.fb.group({
-      dni_usuario: [''],
+      dniUsuarioAsociado: [''],
       estado: [''],
       fecha: ['2021-10-01'],
       hora: ['09:20'],
@@ -52,8 +58,7 @@ export class SolicitarPage implements OnInit {
       let hora = this.hourSelected.toString().split('T')[1];
 
       hora = hora.split(':')[0] + ':' + hora.split(':')[1];
-      
-
+    
       // [0] Año
       // [1] Mes
       // [2] Día
@@ -65,6 +70,11 @@ export class SolicitarPage implements OnInit {
 
       }
     }
+  }
+
+  updateForm() {
+    this.citasService.updateCita(this.id, this.updateCitaForm.value);
+    this.router.navigate(['/citas']);
   }
 
   checkCapacityAvailable(day: string, schedule: string): boolean{
