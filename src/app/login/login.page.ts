@@ -4,6 +4,10 @@ import * as $ from 'jquery';
 import { AuthService } from '../providers/auth.service';
 import { Refactor } from '../refactor/refactor.service';
 
+
+/*import nodemailer from 'nodemailer';
+import { getMaxListeners } from 'node:process';*/
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
