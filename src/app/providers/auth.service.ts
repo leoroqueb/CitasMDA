@@ -53,7 +53,7 @@ export class AuthService {
   }
 
   async logOut(){
-    this.router.navigate(['login']);
-    this.afireauth.signOut();
+    this.afireauth.signOut()
+    .then(() => this.router.navigate(['login']));
   }
 }

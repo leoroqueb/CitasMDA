@@ -5,18 +5,24 @@
     <div class="background">
       <!-- <ion-icon name="menu-outline" id="menuIcon"></ion-icon> -->
 
-      <ion-toolbar class="navbar">
+      <!--<ion-toolbar class="navbar">
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
           <div class="wrapp-logo">
             <div class="app-logo"></div>
           </div>
         </ion-buttons>
-      </ion-toolbar>
+      </ion-toolbar>-->
 
       <div class="welcome">
-        <strong>Tus citas</strong>
+        <ion-buttons class="menuButton" slot="start"><ion-menu-button></ion-menu-button> </ion-buttons>
+        <div>
+          <strong>Bienvenido/a </strong>
+          <p *ngIf="myData">{{myData.nombre}}</p>
+        </div>
+
       </div>
+
     </div>
 
     <ion-card>
@@ -38,8 +44,13 @@
 
       </ion-card-content>
     </ion-card>
-    <ion-button (click)="signOut()" expand="block"  shape="round">
-      TEST BUTTON CIERRE SESION
-    </ion-button>
+
   </div>
+
+  <!-- Botón flotante -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="light" routerLink="/solicitar">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

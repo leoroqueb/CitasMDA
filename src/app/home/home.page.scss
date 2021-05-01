@@ -14,7 +14,7 @@ $purple: #5F2967;
   .background{
     position: relative;
     z-index: 0;
-    height: 9em;
+    height: 8em;
     width: 100vw;
 
     background-color: $purple;
@@ -23,10 +23,10 @@ $purple: #5F2967;
     background-image:url('https://i.ibb.co/jwLXqyd/clouds-min.png');
     background-repeat:no-repeat;
     background-position: bottom;
-    padding-bottom: 72px;
+    /*padding-bottom: 72px;*/
     /*clip-path: polygon(0 0, 100% 0, 100% 100%, 0 65%);*/
 
-    // MENU
+    /*// MENU
     #menuIcon{
       position: absolute;
       left: 1em;
@@ -34,10 +34,28 @@ $purple: #5F2967;
       font-size: 30px;
       margin-top: 0.3em;
       cursor: pointer;
-    }
+    }*/
+
+    /*.menuButton{
+      color: white;
+      position: absolute;
+      left: 1em;
+      top: 50%;
+    }*/
 
     .welcome{
       color: white;
+      font-size: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 50%;
+      height: 100%;
+
+      .menuButton{
+        position: fixed;
+        left: 1em;
+      }
 
       p{
         color: #ffffff;

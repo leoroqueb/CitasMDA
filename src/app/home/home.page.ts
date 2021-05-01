@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { UsuariosI } from '../models/users.model';
 import { AuthService } from '../providers/auth.service';
+import { UsuariosService } from '../providers/usuarios.service';
 
 @Component({
   selector: 'app-home',
@@ -7,16 +10,21 @@ import { AuthService } from '../providers/auth.service';
   styleUrls: ['home.page.scss'],
 })
 
-export class HomePage {
-
+export class HomePage implements OnInit{
+  myDataConnection: Subscription  
+  myData: UsuariosI;
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UsuariosService
   ) {
 
   }
 
-  signOut(){
-    this.authService.logOut();
+  async ngOnInit(){
+    this.myDataConnection = (await this.userService.getMyselfData()).asObservable()
+    .subscribe(data =>  this.myData = data);
   }
+
+  
 
 }

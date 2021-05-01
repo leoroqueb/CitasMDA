@@ -4,17 +4,14 @@ import { RouteReuseStrategy } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AngularFireModule } from '@angular/fire'
 import { firebaseConfig } from '../environments/environment'
 import { AngularFireAuthModule } from '@angular/fire/auth'
 
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -25,11 +22,9 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig), 
     AngularFireAuthModule, 
-    AngularFireDatabaseModule,
-    AngularFireStorageModule,
     IonicModule.forRoot(),
-    AppRoutingModule
-  ],
+    CommonModule,
+    AppRoutingModule],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     SplashScreen,
