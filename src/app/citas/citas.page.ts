@@ -16,23 +16,9 @@ export class CitasPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.fetchCitas();
-    let citaRes = this.citasService.getCitaList();
-    citaRes.snapshotChanges().subscribe(res => {
-      this.Citas = [];
-      res.forEach(item => {
-        let a = item.payload.toJSON();
-        a['$key'] = item.key;
-        this.Citas.push(a as CitaI);
-      })
-    })
+/*     let citaRes = this.citasService.getAppointments(); */
   }
 
-  fetchCitas() {
-    this.citasService.getCitaList().valueChanges().subscribe(res => {
-      console.log(res)
-    })
-  }
 
   deleteCita(id) {
     console.log(id)

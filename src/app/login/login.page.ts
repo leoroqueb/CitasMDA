@@ -5,6 +5,10 @@ import { AuthService } from '../providers/auth.service';
 import { CitasService } from '../providers/citas.service';
 import { Refactor } from '../refactor/refactor.service';
 
+
+/*import nodemailer from 'nodemailer';
+import { getMaxListeners } from 'node:process';*/
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',

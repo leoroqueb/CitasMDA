@@ -53,8 +53,7 @@ export class SolicitarPage implements OnInit {
       let hora = this.hourSelected.toString().split('T')[1];
 
       hora = hora.split(':')[0] + ':' + hora.split(':')[1];
-      
-
+    
       // [0] Año
       // [1] Mes
       // [2] Día
@@ -67,6 +66,7 @@ export class SolicitarPage implements OnInit {
       }
     }
   }
+
 
   checkCapacityAvailable(day: string, schedule: string): boolean{
     return false;

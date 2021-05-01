@@ -13,8 +13,8 @@ const routes: Routes = [
     loadChildren: () => import('../solicitar/solicitar.module').then( m => m.SolicitarPageModule)
   },
   {
-    path: 'edit-cita/:id',
-    loadChildren: () => import('../edit-cita/edit-cita.module').then( m => m.EditCitaPageModule)
+    path: 'solicitar/:id',
+    loadChildren: () => import('../solicitar/solicitar.module').then( m => m.SolicitarPageModule)
   }
 ];
 
