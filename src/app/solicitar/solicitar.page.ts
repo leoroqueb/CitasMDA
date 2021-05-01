@@ -4,8 +4,8 @@ import {ToastController} from '@ionic/angular';
 import { UsuariosI } from '../models/users.model';
 import { UsuariosService } from '../providers/usuarios.service';
 import { CitasService } from '../providers/citas.service';
-
-
+import { FormGroup, FormBuilder } from "@angular/forms";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -24,6 +24,10 @@ export class SolicitarPage implements OnInit {
   daySelected = '';
   hourSelected = '';
   userInfo: UsuariosI;
+
+  citaForm: FormGroup;
+  updateCitaForm: FormGroup;
+  id: any;
 
   constructor(
     public toastController: ToastController,
@@ -53,8 +57,7 @@ export class SolicitarPage implements OnInit {
       let hora = this.hourSelected.toString().split('T')[1];
 
       hora = hora.split(':')[0] + ':' + hora.split(':')[1];
-      
-
+    
       // [0] Año
       // [1] Mes
       // [2] Día
@@ -66,6 +69,10 @@ export class SolicitarPage implements OnInit {
 
       }
     }
+  }
+
+  updateForm() {
+
   }
 
   checkCapacityAvailable(day: string, schedule: string): boolean{
