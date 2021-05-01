@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, Subscription } from 'rxjs';
 import { UsuariosI } from '../models/users.model';
-
 import { CitaI, AforoI } from '../models/citas'
-import { AngularFireList, AngularFireObject } from '@angular/fire/database';
+
 
 @Injectable({
   providedIn: 'root'
@@ -79,12 +78,6 @@ export class CitasService {
       appoinmentSus.unsubscribe();
     })
   }
-
-
-
-
-  citaListRef: AngularFireList<any>;
-  citaRef: AngularFireObject<any>;
 
 
   // Update
