@@ -24,3 +24,24 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+.navbar {
+    margin-bottom: 1rem;
+    background-color: black;
+    .wrapp-logo {
+      width: 75vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .app-logo{
+        background-image: url('./assets/img/logo1.png');
+        width: 3rem;
+        height: 3rem;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        margin: 0.5rem auto;
+      }
+    }
+  }
