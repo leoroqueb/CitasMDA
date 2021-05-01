@@ -3,19 +3,24 @@ import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { AuthService } from '../providers/auth.service';
 
+
+/*import nodemailer from 'nodemailer';
+import { getMaxListeners } from 'node:process';*/
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+
   login = {
-    email: "",
-    password: ""
+    email: '',
+    password: ''
   };
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
