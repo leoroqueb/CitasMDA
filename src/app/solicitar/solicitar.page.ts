@@ -45,6 +45,7 @@ export class SolicitarPage implements OnInit {
   /**
    * Método que tras validar las fechas, envía al backend los datos
    */
+<<<<<<< HEAD
   onSubmit(){
     if (!this.citaForm.valid) {
       this.validator();
@@ -56,7 +57,31 @@ export class SolicitarPage implements OnInit {
         this.router.navigate(['/citas']);
       }).catch(error => console.log(error));
 
+=======
+  onSubmit(user: UsuariosI){
+    if(this.validator()){
+      const fecha = this.daySelected.toString().split('T')[0];
+      let hora = this.hourSelected.toString().split('T')[1];
+
+      hora = hora.split(':')[0] + ':' + hora.split(':')[1];
+      
+
+      // [0] Año
+      // [1] Mes
+      // [2] Día
+      const fechas = fecha.split('-');
+      const fechaModificada = fechas.reverse().join('-');
+      if(this.checkCapacityAvailable(fechaModificada, hora)){
+        this.citasService.addAppointment(user, fechaModificada, hora);
+      }else{
+
+      }
+>>>>>>> dc82f87... Merge branch 'develop' of https://github.com/leoroqueb/CitasMDA into feature/aforo
     }
+  }
+
+  checkCapacityAvailable(day: string, schedule: string): boolean{
+    return false;
   }
 
   /**
