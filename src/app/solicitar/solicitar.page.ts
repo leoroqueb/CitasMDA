@@ -4,8 +4,8 @@ import {ToastController} from '@ionic/angular';
 import { UsuariosI } from '../models/users.model';
 import { UsuariosService } from '../providers/usuarios.service';
 import { CitasService } from '../providers/citas.service';
-import { FormGroup, FormBuilder } from "@angular/forms";
-import { Router } from "@angular/router";
+
+
 
 
 @Component({
@@ -25,8 +25,6 @@ export class SolicitarPage implements OnInit {
   hourSelected = '';
   userInfo: UsuariosI;
 
-  citaForm: FormGroup;
-  updateCitaForm: FormGroup;
   id: any;
 
   constructor(
@@ -71,9 +69,6 @@ export class SolicitarPage implements OnInit {
     }
   }
 
-  updateForm() {
-
-  }
 
   checkCapacityAvailable(day: string, schedule: string): boolean{
     return false;
