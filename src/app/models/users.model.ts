@@ -8,23 +8,3 @@ export interface UsuariosI {
     genero: string;
     telefono: string;
 }
-
-export interface CitasI {
-    dniUsuarioAsociado: string;
-    estado: string;
-    fecha: string;
-    hora: string;
-    medicoAsociado: string;
-    lugar: string;
-}
-
-
-export interface HorariosI {
-    hora: string;
-    aforo?: string;
-}
-
-export interface AforoI {
-    actual: number;
-    maximo?: number;
-}

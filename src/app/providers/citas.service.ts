@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, Subscription } from 'rxjs';
-import { AforoI, CitasI, UsuariosI } from '../models/users.model';
+import { UsuariosI } from '../models/users.model';
+
+import { CitaI, AforoI } from '../models/citas'
+import { AngularFireList, AngularFireObject } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -52,13 +55,13 @@ export class CitasService {
     }
   }
 
-  getAppointments(userDNI: string): Observable<CitasI[]>{
-    return this.citasConnection.doc<CitasI[]>(userDNI).valueChanges();
+  getAppointments(userDNI: string): Observable<CitaI[]>{
+    return this.citasConnection.doc<CitaI[]>(userDNI).valueChanges();
   }
 
   addAppointment(user: UsuariosI, day: string, schedule: string){
     let appoinmentSus: Subscription;
-    let newAppointment: CitasI = {
+    let newAppointment: CitaI = {
       dniUsuarioAsociado: user.dni,
       estado: "Pendiente",
       fecha: day,
@@ -67,7 +70,7 @@ export class CitasService {
       medicoAsociado: "Dr. Zacarías "
     }
     appoinmentSus = this.getAppointments(user.dni).subscribe(data => {
-      let updateAppointments: CitasI[] = [];
+      let updateAppointments: CitaI[] = [];
       if(data != undefined){
         updateAppointments = data;
       }
@@ -79,4 +82,18 @@ export class CitasService {
 
 
 
+
+  citaListRef: AngularFireList<any>;
+  citaRef: AngularFireObject<any>;
+
+
+  // Update
+  updateCita(id, cita: CitaI) {
+
+  }
+
+  // Delete
+  deleteCita(id: number) {
+    
+  }
 }

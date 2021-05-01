@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SolicitarPageRoutingModule } from './solicitar-routing.module';
+import { EditCitaPageRoutingModule } from './edit-cita-routing.module';
 
-import { SolicitarPage } from './solicitar.page';
+import { EditCitaPage } from './edit-cita.page';
 
 @NgModule({
   imports: [
@@ -14,8 +14,8 @@ import { SolicitarPage } from './solicitar.page';
     ReactiveFormsModule,
     FormsModule,
     IonicModule,
-    SolicitarPageRoutingModule
+    EditCitaPageRoutingModule
   ],
-  declarations: [SolicitarPage]
+  declarations: [EditCitaPage]
 })
-export class SolicitarPageModule {}
+export class EditCitaPageModule {}

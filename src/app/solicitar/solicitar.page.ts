@@ -57,11 +57,16 @@ export class SolicitarPage implements OnInit {
       // [2] Día
       const fechas = fecha.split('-');
       const fechaModificada = fechas.reverse().join('-');
+      if(this.checkCapacityAvailable(fechaModificada, hora)){
+        this.citasService.addAppointment(user, fechaModificada, hora);
+      }else{
 
-      this.citasService.addAppointment(user, fechaModificada, hora);
-      //Hazme el backend putooooooooooooooooo suck my dick nigga u are shit mdfker
-      //Hazme lo del aforoo pinche jueputa gonorrea mamawevo
+      }
     }
+  }
+
+  checkCapacityAvailable(day: string, schedule: string): boolean{
+    return false;
   }
 
   /**
