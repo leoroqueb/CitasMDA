@@ -19,8 +19,8 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'Citas',
-      url: '/citas',
+      title: 'Solicitar cita',
+      url: '/solicitar',
       icon: 'calendar'
     }
   ];

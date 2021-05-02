@@ -6,6 +6,7 @@ import { UsuariosService } from '../providers/usuarios.service';
 import { CitasService } from '../providers/citas.service';
 import { CitaI } from '../models/citas.model';
 import { ActivatedRoute } from '@angular/router';
+import { Refactor } from '../refactor/refactor.service';
 
 
 
@@ -36,6 +37,7 @@ export class SolicitarPage implements OnInit {
     private userService: UsuariosService,
     private citasService: CitasService,
     private actRoute: ActivatedRoute,
+    private refactor: Refactor,
     ) { 
       this.dni = this.actRoute.snapshot.paramMap.get('dni');
     }
@@ -58,6 +60,7 @@ export class SolicitarPage implements OnInit {
    */
   onSubmit(user: UsuariosI){
     if(this.validator()){
+      //Formateamos fecha y hora de manera correcta
       const fecha = this.daySelected.toString().split('T')[0];
       let hora = this.hourSelected.toString().split('T')[1];
 
@@ -68,66 +71,28 @@ export class SolicitarPage implements OnInit {
       // [2] Día
       const fechas = fecha.split('-');
       const fechaModificada = fechas.reverse().join('-');
-      if(this.checkCapacityAvailable(fechaModificada, hora)){
-        this.citasService.addAppointment(user, fechaModificada, hora);
-      }else{
 
-      }
+      //Hacemos la gestión de la BD. Comprobamos si el aforo no está lleno y añadimos la cita a la BD.
+      this.citasService.checkCapacityAvailableAndAddAppointment('27-04-21', '9:20', user)
     }
   }
 
 
-  checkCapacityAvailable(day: string, schedule: string): boolean{
-    return true;
-  }
 
   /**
    * Valida los campos y muestra un pop-up en caso de fallo
    */
   validator(){
     if($('#fecha').val().toString() === ''){
-      this.presentToast('Selecciona una fecha para continuar').then(r => false);
+      this.refactor.presentToast('Selecciona una fecha para continuar').then(r => false);
       return false;
     }else if($('#hora').val().toString() === ''){
-      this.presentToast('Selecciona una hora para continuar').then(r => false);
+      this.refactor.presentToast('Selecciona una hora para continuar').then(r => false);
       return false;
     }
     return true;
   }
 
-  async presentToast(msg) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 2000
-    });
-    await toast.present();
-  }
 
-  async presentToastWithOptions() {
-    const toast = await this.toastController.create({
-      header: 'Toast header',
-      message: 'Click to Close',
-      position: 'top',
-      buttons: [
-        {
-          side: 'start',
-          icon: 'star',
-          text: 'Favorite',
-          handler: () => {
-            console.log('Favorite clicked');
-          }
-        }, {
-          text: 'Done',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    await toast.present();
 
-    const { role } = await toast.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
-  }
 }
