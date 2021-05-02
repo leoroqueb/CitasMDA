@@ -30,11 +30,9 @@ const routes: Routes = [
     data: { authGuardPipe: redirectLoggedInToHome }
   },
   {
-    path: 'citas',
-    loadChildren: () => import('./citas/citas.module').then( m => m.CitasPageModule)
+    path: 'solicitar',
+    loadChildren: () => import('./solicitar/solicitar.module').then( m => m.SolicitarPageModule)
   },
-
-
   
 ];
 

@@ -4,6 +4,8 @@ import {ToastController} from '@ionic/angular';
 import { UsuariosI } from '../models/users.model';
 import { UsuariosService } from '../providers/usuarios.service';
 import { CitasService } from '../providers/citas.service';
+import { CitaI } from '../models/citas.model';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -24,12 +26,19 @@ export class SolicitarPage implements OnInit {
   daySelected = '';
   hourSelected = '';
   userInfo: UsuariosI;
+  updating: boolean;
+  dni: string;
+  Cita: CitaI[];
+
 
   constructor(
     public toastController: ToastController,
     private userService: UsuariosService,
     private citasService: CitasService,
-    ) { }
+    private actRoute: ActivatedRoute,
+    ) { 
+      this.dni = this.actRoute.snapshot.paramMap.get('dni');
+    }
 
   ngOnInit() {
     this.showUserInfo();
@@ -69,7 +78,7 @@ export class SolicitarPage implements OnInit {
 
 
   checkCapacityAvailable(day: string, schedule: string): boolean{
-    return false;
+    return true;
   }
 
   /**

@@ -69,19 +69,26 @@ export class CitasService {
 
   addAppointment(user: UsuariosI, day: string, schedule: string){
     let appoinmentSus: Subscription;
+    //Creamos la cita con los datos recogidos
     let newAppointment: CitaI = {
       dniUsuarioAsociado: user.dni,
       estado: "Pendiente",
       fecha: day,
       hora: schedule,
-      lugar: "Planta 5, sector A, puerta 16",
-      medicoAsociado: "Dr. Zacarías "
+      lugar: "Planta 5, sector A, puerta 15",
+      medicoAsociado: "Dr. Zacarías Atrustegui"
     }
     let pendingAppointments:CitaI[] = [];
+    //Cogemos las citas existentes de la BD y actualizamos las pendientes para añadir la cita
     appoinmentSus = this.getAppointments(user.dni).subscribe(data => {
       pendingAppointments = data.pendientes;
       pendingAppointments.push(newAppointment);
-      this.citasConnection.doc(user.dni).set(pendingAppointments);
+      let updatedData: CitasArrayI = {
+        finalizadas: data.finalizadas,
+        modificadas: data.modificadas,
+        pendientes: pendingAppointments
+      }
+      this.citasConnection.doc(user.dni).set(updatedData);
       appoinmentSus.unsubscribe();
     })
   }

@@ -25,23 +25,44 @@
 
     </div>
 
-    <ion-card>
+    <ion-card *ngFor="let cita of Citas">
       <ion-card-header>
-        <ion-card-subtitle>Próxima cita</ion-card-subtitle>
+        <ion-row>
+          <ion-col size="8">
+            <ion-card-subtitle>Próxima cita</ion-card-subtitle>
+          </ion-col>
+          <ion-col>
+            <div class="item-note item-end">
+              <button ion-button clear [routerLink]="['/home/solicitar/', cita.dniUsuarioAsociado]">
+                <ion-icon name="create" style="zoom:2.0"></ion-icon>
+              </button>
+              <button ion-button clear (click)="deleteCita(cita.dniUsuarioAsociado)">
+                <ion-icon name="trash" style="zoom:2.0"></ion-icon>
+              </button>
+            </div>
+          </ion-col>
+        </ion-row>
       </ion-card-header>
 
       <ion-card-content>
-        <div class="card-cita">
-          <div class="fecha">
-            <ion-icon name="time-outline"></ion-icon>
-            <p>24/03/2021</p>
-          </div>
-          <div class="lugar">
-            <ion-icon name="navigate-outline"></ion-icon>
-            <p>Hospital San Roque</p>
-          </div>
-        </div>
-
+            <div class="card-cita">
+              <div class="fecha">
+                <ion-icon name="calendar-outline"></ion-icon>
+                <p> {{cita.fecha}} </p>
+              </div>
+              <div class="hora">
+                <ion-icon name="time-outline"></ion-icon>
+                <p> {{cita.hora}}</p>
+              </div>
+              <div class="lugar">
+                <ion-icon name="navigate-outline"></ion-icon>
+                <p>{{cita.lugar}}</p>
+              </div>
+              <div class="medico">
+                <ion-icon name="briefcase-outline"></ion-icon>
+                <p>{{cita.medicoAsociado}}</p>
+              </div>
+            </div>
       </ion-card-content>
     </ion-card>
 
@@ -51,7 +72,7 @@
 
   <!-- Botón flotante -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="light" routerLink="/citas/solicitar">
+    <ion-fab-button color="light" routerLink="/solicitar">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
