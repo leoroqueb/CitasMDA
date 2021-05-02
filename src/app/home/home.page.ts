@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { CitaI } from '../models/citas.model';
 import { UsuariosI } from '../models/users.model';
-import { AuthService } from '../providers/auth.service';
 import { CitasService } from '../providers/citas.service';
 import { UsuariosService } from '../providers/usuarios.service';
 import { Refactor } from '../refactor/refactor.service';
@@ -20,7 +19,6 @@ export class HomePage implements OnInit{
   allApointments: CitaI[] = [];
   citas: CitaI[] = [];
   constructor(
-    private authService: AuthService,
     private userService: UsuariosService,
     private citasService: CitasService,
     private router: Router,

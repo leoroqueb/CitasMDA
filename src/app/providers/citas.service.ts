@@ -70,9 +70,8 @@ export class CitasService {
           this.confirmAppointment(newDay, newSchedule)
           .then(confirmed => {
             if(confirmed){
+              //Eliminamos la cita de su estado pendiente
               this.deleteAppointment(this.appointmentToEdit).then(() => {
-                //Antes de cambiar los valores, decrementamos el aforo de la hora antes de ser modificada.
-                this.updateActualCapacityInDay(this.appointmentToEdit.fecha, this.appointmentToEdit.hora,false);
                 //cambiamos de la cita los datos necesarios
                 this.appointmentToEdit.estado = "Modificada";
                 this.appointmentToEdit.fecha = newDay;
@@ -121,28 +120,40 @@ export class CitasService {
         let index: number;
         switch(appointment.estado){
           case "Pendiente": {
+            //Antes de eliminar la cita, decrementamos el aforo de la hora antes de ser modificada.
+            this.updateActualCapacityInDay(this.appointmentToEdit.fecha, this.appointmentToEdit.hora,false);
+            //Cogemos la cita y la eliminamos
             index = data.pendientes.indexOf(appointment);
             data.pendientes.splice(index,1);
+            //Actualizamos la BD
             this.citasConnection.doc(appointment.dniUsuarioAsociado).set(data);
+            //Eliminamos conexiones
             deleteSus.unsubscribe();
             resolve();
             break;
           }
           case "Modificada":{
+            //Antes de eliminar la cita, decrementamos el aforo de la hora antes de ser modificada.
+            this.updateActualCapacityInDay(this.appointmentToEdit.fecha, this.appointmentToEdit.hora,false);
+            //Cogemos la cita y la eliminamos
             index = data.modificadas.indexOf(appointment);
             data.modificadas.splice(index,1);
+            //Actualizamos la BD
             this.citasConnection.doc(appointment.dniUsuarioAsociado).set(data);
+            //Eliminamos conexiones
             deleteSus.unsubscribe();
             resolve();
             break;
           }
           case "Finalizada": {
-            console.log("Entro finalizada");
+            //Antes de eliminar la cita, decrementamos el aforo de la hora antes de ser modificada.
+            this.updateActualCapacityInDay(this.appointmentToEdit.fecha, this.appointmentToEdit.hora,false);
+            //Cogemos la cita y la eliminamos
             index = data.finalizadas.indexOf(appointment);
             data.finalizadas.splice(index,1);
-            console.log(index);
-            console.log(data);
+            //Actualizamos la BD
             this.citasConnection.doc(appointment.dniUsuarioAsociado).set(data);
+            //Eliminamos conexiones
             deleteSus.unsubscribe();
             resolve();
             break;
