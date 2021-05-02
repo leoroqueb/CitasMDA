@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CitaI } from '../models/citas';
+import { CitaI } from '../models/citas.model';
 import { CitasService } from '../providers/citas.service';
 
 @Component({
