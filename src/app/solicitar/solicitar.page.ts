@@ -27,7 +27,7 @@ export class SolicitarPage implements OnInit {
   daySelected = '';
   hourSelected = '';
   userInfo: UsuariosI;
-  updating: boolean;
+  isEditing: boolean;
   dni: string;
   Cita: CitaI[];
 
@@ -44,6 +44,7 @@ export class SolicitarPage implements OnInit {
 
   ngOnInit() {
     this.showUserInfo();
+    this.isEditing = this.citasService.editing;
   }
   
   
@@ -55,10 +56,20 @@ export class SolicitarPage implements OnInit {
     })
   }
 
+
+  //Si el usuario entra en editar cita y da hacia atrás, reestablece los valores por defecto
+  resetEditing(){
+    if(this.isEditing || this.citasService.editing){
+      this.isEditing = false;
+      this.citasService.editing = false;
+      this.citasService.appointmentToEdit = undefined;
+    }
+  }
+
   /**
    * Método que tras validar las fechas, envía al backend los datos
    */
-  onSubmit(user: UsuariosI){
+  createAppointment(user: UsuariosI){
     if(this.validator()){
       //Formateamos fecha y hora de manera correcta
       const fecha = this.daySelected.toString().split('T')[0];
@@ -75,6 +86,24 @@ export class SolicitarPage implements OnInit {
       //Hacemos la gestión de la BD. Comprobamos si el aforo no está lleno y añadimos la cita a la BD.
       this.citasService.checkCapacityAvailableAndAddAppointment('27-04-21', '9:20', user)
     }
+  }
+
+  editAppointment(){
+    if(this.validator()){
+      //Formateamos fecha y hora de manera correcta
+      const fecha = this.daySelected.toString().split('T')[0];
+      let hora = this.hourSelected.toString().split('T')[1];
+
+      hora = hora.split(':')[0] + ':' + hora.split(':')[1];
+    
+      // [0] Año
+      // [1] Mes
+      // [2] Día
+      const fechas = fecha.split('-');
+      const fechaModificada = fechas.reverse().join('-');
+      this.citasService.editAppointment('27-04-21', '9:40');
+    }
+    
   }
 
 

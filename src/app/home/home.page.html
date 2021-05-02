@@ -49,10 +49,10 @@
                 <p>{{cita.medicoAsociado}}</p>
               </div> -->
               <div class="item-note item-end">
-                <button ion-button clear [routerLink]="['/home/solicitar/', cita.dniUsuarioAsociado]">
+                <button ion-button clear (click)="editAppointment(cita)">
                   <ion-icon name="create" ></ion-icon>
                 </button>
-                <button ion-button clear (click)="deleteCita(cita.dniUsuarioAsociado)">
+                <button ion-button clear (click)="deleteCita(cita)">
                   <ion-icon name="trash" ></ion-icon>
                 </button>
               </div>

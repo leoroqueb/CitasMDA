@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { CitaI } from '../models/citas.model';
 import { UsuariosI } from '../models/users.model';
 import { AuthService } from '../providers/auth.service';
 import { CitasService } from '../providers/citas.service';
 import { UsuariosService } from '../providers/usuarios.service';
+import { Refactor } from '../refactor/refactor.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +22,9 @@ export class HomePage implements OnInit{
   constructor(
     private authService: AuthService,
     private userService: UsuariosService,
-    private citasService: CitasService
+    private citasService: CitasService,
+    private router: Router,
+    private refactor: Refactor
   ) {
 
   }
@@ -49,6 +53,18 @@ export class HomePage implements OnInit{
         
       })
     }))
+  }
+
+  editAppointment(appointment: CitaI){
+    this.citasService.editing = true;
+    this.citasService.appointmentToEdit = appointment;
+    this.router.navigateByUrl('/solicitar');
+  }
+
+  deleteCita(appointment: CitaI){
+    this.citasService.deleteAppointment(appointment).then(() => {
+      this.refactor.presentToast("Su cita ha sido eliminada correctamente");
+    });
   }
 
   

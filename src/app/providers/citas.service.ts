@@ -21,9 +21,10 @@ export class CitasService {
   //Suscripciones a los documentos de la BD
   private appoinmentSus: Subscription;
   private capacitySus: Subscription;
+  private editingSus: Subscription;
 
+  //Variables internas para crear las citas
   private sector: string[] = ['A', 'B', 'C', 'D', 'E'];
-
   private doctorsArray: string[] = [
     'Dr. Zacarías Atrustegui',
     'Dr. Ethan Hunter',
@@ -33,6 +34,10 @@ export class CitasService {
     'Dr. Kratos Spartanghost',
     'Dra. Natasha Romanoff'
   ];
+
+  //Va a editar la cita?
+  public editing:boolean = false;
+  public appointmentToEdit:CitaI = undefined;
   
   constructor(
     private dbHorarios: AngularFirestore,
@@ -53,6 +58,99 @@ export class CitasService {
       finalizadas: []
     }
     this.citasConnection.doc(dni).set(appointmentArray);
+  }
+
+  editAppointment(newDay:string, newSchedule: string){
+    //Si hay algo que editar
+    if(this.editing && this.appointmentToEdit != undefined){
+      //Comprobamos aforo de la fecha nueva
+      this.editingSus = this.getCapacityInDay(newSchedule, newDay).subscribe(capacity => {
+        if (capacity.actual < capacity.maximo){
+          //Le pedimos confirmación
+          this.confirmAppointment(newDay, newSchedule)
+          .then(confirmed => {
+            if(confirmed){
+              this.deleteAppointment(this.appointmentToEdit).then(() => {
+                //Antes de cambiar los valores, decrementamos el aforo de la hora antes de ser modificada.
+                this.updateActualCapacityInDay(this.appointmentToEdit.fecha, this.appointmentToEdit.hora,false);
+                //cambiamos de la cita los datos necesarios
+                this.appointmentToEdit.estado = "Modificada";
+                this.appointmentToEdit.fecha = newDay;
+                this.appointmentToEdit.hora = newSchedule;
+                //Actualizamos la cita
+                let updateAppointmentSus = this.citasConnection.doc<CitasArrayI>(this.appointmentToEdit.dniUsuarioAsociado).valueChanges().subscribe(data =>{
+                  data.modificadas.push(this.appointmentToEdit);
+                  this.citasConnection.doc(this.appointmentToEdit.dniUsuarioAsociado).update(data).then(() => {
+                    this.refactor.presentToast("Su cita se ha modificado correctamente.");
+                    //Actualizamos el aforo de la nueva cita
+                    this.updateActualCapacityInDay(this.appointmentToEdit.fecha, this.appointmentToEdit.hora, true);
+                    //Reseteamos los valores por defecto
+                    this.editing = false;
+                    this.appointmentToEdit = undefined;
+                    //Cerramos conexiones y vamos al home
+                    this.editingSus.unsubscribe();
+                    this.router.navigateByUrl('/home');
+                  });
+                  updateAppointmentSus.unsubscribe();
+                })
+              });
+            }else{
+              this.refactor.presentToast("Su cita no se ha modificado.");
+              //Reseteamos los valores por defecto
+              this.editing = false;
+              this.appointmentToEdit = undefined;
+              //Cerramos conexiones y vamos al home
+              this.editingSus.unsubscribe();
+              this.router.navigateByUrl('/home');
+            }
+          });
+        }else{
+          this.refactor.presentToast("Lo sentimos, el aforo actual para esta hora está completo.");
+        }
+      })
+      
+    }else{
+      this.refactor.presentToast("Ha ocurrido un error, inténtelo de nuevo más tarde.");
+      this.router.navigateByUrl('/home');
+    }
+  }
+
+  deleteAppointment(appointment:CitaI): Promise<void>{
+    return new Promise((resolve) => {
+      let deleteSus = this.citasConnection.doc<CitasArrayI>(appointment.dniUsuarioAsociado).valueChanges().subscribe(data =>{
+        let index: number;
+        switch(appointment.estado){
+          case "Pendiente": {
+            index = data.pendientes.indexOf(appointment);
+            data.pendientes.splice(index,1);
+            this.citasConnection.doc(appointment.dniUsuarioAsociado).set(data);
+            deleteSus.unsubscribe();
+            resolve();
+            break;
+          }
+          case "Modificada":{
+            index = data.modificadas.indexOf(appointment);
+            data.modificadas.splice(index,1);
+            this.citasConnection.doc(appointment.dniUsuarioAsociado).set(data);
+            deleteSus.unsubscribe();
+            resolve();
+            break;
+          }
+          case "Finalizada": {
+            console.log("Entro finalizada");
+            index = data.finalizadas.indexOf(appointment);
+            data.finalizadas.splice(index,1);
+            console.log(index);
+            console.log(data);
+            this.citasConnection.doc(appointment.dniUsuarioAsociado).set(data);
+            deleteSus.unsubscribe();
+            resolve();
+            break;
+          }
+        }
+      })
+    })
+    
   }
 
 
@@ -208,34 +306,26 @@ export class CitasService {
      * Actualizamos el aforo
      * No es la manera más correcta (debería actualizarse una vez se añade la cita, no paralelamente), pero es la que no da errores. 
      */
-    this.updateActualCapacityInDay(day, schedule);
+    this.updateActualCapacityInDay(day, schedule, true);
 
     //Devolvemos la cita creada, que servirá para enviar el correo de confirmación
     return newAppointment;
   }
 
-  updateActualCapacityInDay(day: string, schedule: string){
-    console.log(day+" "+ schedule);
+  updateActualCapacityInDay(day: string, schedule: string, addOrSustract: boolean){
     let updateCapacitySus: Subscription;
     //Cogemos el aforo actual en el horario en que se ha confirmado la cita
     updateCapacitySus = this.getCapacityInDay(schedule, day).subscribe(capacity => {
-      //Aumentamos el aforo actual y actualizamos la BD
-      capacity.actual++;
+      //Si addOrSustract es true, incrementamos el aforo, si no, lo decrementamos.
+      if(addOrSustract){
+        capacity.actual++;
+      }else{
+        capacity.actual--;
+      }
       this.horariosConnection.doc(day).collection(schedule).doc<AforoI>("aforo"+schedule).set(capacity);
       //Cerramos conexiones
       updateCapacitySus.unsubscribe();
-      this.capacitySus.unsubscribe();
     })
   }
 
-
-  // Update
-  updateCita(id, cita: CitaI) {
-
-  }
-
-  // Delete
-  deleteCita(id: number) {
-    
-  }
 }
