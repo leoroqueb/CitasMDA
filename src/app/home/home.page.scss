@@ -6,6 +6,7 @@ $purple: #5F2967;
   position: relative;
   left: 0;
   right: 0;
+
   font-family: 'Nunito', sans-serif;
   background-color: #EEEEF9;
   height: 100%;
@@ -15,12 +16,32 @@ $purple: #5F2967;
     z-index: 0;
     height: 8em;
     width: 100vw;
+
     background-color: $purple;
     /*background: linear-gradient(90deg, rgba(95,41,103,1) 0%, rgba(140,71,150,1) 100%);*/
+
     background-image:url('https://i.ibb.co/jwLXqyd/clouds-min.png');
     background-repeat:no-repeat;
     background-position: bottom;
+    /*padding-bottom: 72px;*/
+    /*clip-path: polygon(0 0, 100% 0, 100% 100%, 0 65%);*/
 
+    /*// MENU
+    #menuIcon{
+      position: absolute;
+      left: 1em;
+      color: white;
+      font-size: 30px;
+      margin-top: 0.3em;
+      cursor: pointer;
+    }*/
+
+    /*.menuButton{
+      color: white;
+      position: absolute;
+      left: 1em;
+      top: 50%;
+    }*/
 
     .welcome{
       color: white;
@@ -53,11 +74,11 @@ $purple: #5F2967;
 
     .card-cita{
       text-align: left;
-      width: 80%;
 
-      .fecha, .lugar, .medico, .hora {
+      .fecha, .lugar {
+
         display: flex;
-        margin-top: 0.3rem;
+
 
         p {
           font-size: 16px;

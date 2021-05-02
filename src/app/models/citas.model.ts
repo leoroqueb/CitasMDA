@@ -13,6 +13,12 @@ export interface HorariosI {
     aforo?: string;
 }
 
+export interface CitasArrayI{
+    pendientes: CitaI[];
+    modificadas: CitaI[];
+    finalizadas: CitaI[];
+}
+
 export interface AforoI {
     actual: number;
     maximo?: number;

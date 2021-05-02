@@ -5,6 +5,7 @@ import { Refactor } from '../refactor/refactor.service';
 import * as $ from 'jquery';
 import { UsuariosI } from '../models/users.model';
 import { UsuariosService } from '../providers/usuarios.service';
+import { CitasService } from '../providers/citas.service';
 
 @Component({
   selector: 'app-registration',
@@ -35,7 +36,8 @@ export class RegistrationPage implements OnInit {
     private router: Router,
     private authService: AuthService,
     private userService: UsuariosService,
-    private refactor: Refactor
+    private refactor: Refactor,
+    private citasService: CitasService,
   ) { }
 
   ngOnInit(){}
@@ -51,6 +53,7 @@ export class RegistrationPage implements OnInit {
       ss: this.campos.ss,
       telefono: this.campos.telefono
     } 
+
     
     this.authService.registerUser(this.campos.email, this.campos.password)
     .then(() => {
@@ -60,6 +63,7 @@ export class RegistrationPage implements OnInit {
         this.router.navigateByUrl('home');
       })
       .catch((err) => this.refactor.presentToast("ERROR: " + err));
+      this.citasService.registerUserToAppointmentsBD(userProfile.dni);
     })
     .catch(err => this.refactor.presentToast("ERROR: " + err));
   }

@@ -6,14 +6,6 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
-  },
-  {
-    path: 'solicitar',
-    loadChildren: () => import('../solicitar/solicitar.module').then( m => m.SolicitarPageModule)
-  },
-  {
-    path: 'solicitar/:dni',
-    loadChildren: () => import('../solicitar/solicitar.module').then( m => m.SolicitarPageModule)
   }
 ];
 

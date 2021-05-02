@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, Subscription } from 'rxjs';
 import { UsuariosI } from '../models/users.model';
-import { CitaI, AforoI } from '../models/citas'
-import { Router } from '@angular/router';
+import { CitaI, AforoI, CitasArrayI } from '../models/citas.model'
 
 
 @Injectable({
@@ -15,10 +14,18 @@ export class CitasService {
   constructor(
     private dbHorarios: AngularFirestore,
     private dbCitas: AngularFirestore,
-    private router: Router
   ) {
     this.horariosConnection = this.dbHorarios.collection(`horarios`);
     this.citasConnection = this.dbCitas.collection(`citas`);
+  }
+
+  registerUserToAppointmentsBD(dni: string){
+    let appointmentArray: CitasArrayI = {
+      pendientes: [],
+      modificadas: [],
+      finalizadas: []
+    }
+    this.citasConnection.doc(dni).set(appointmentArray);
   }
 
 
@@ -56,8 +63,8 @@ export class CitasService {
     }
   }
 
-  getAppointments(userDNI: string): Observable<CitaI[]>{
-    return this.citasConnection.doc<CitaI[]>(userDNI).valueChanges();
+  getAppointments(userDNI: string): Observable<CitasArrayI>{
+    return this.citasConnection.doc<CitasArrayI>(userDNI).valueChanges();
   }
 
   addAppointment(user: UsuariosI, day: string, schedule: string){
@@ -70,25 +77,23 @@ export class CitasService {
       lugar: "Planta 5, sector A, puerta 16",
       medicoAsociado: "Dr. Zacarías "
     }
+    let pendingAppointments:CitaI[] = [];
     appoinmentSus = this.getAppointments(user.dni).subscribe(data => {
-      let updateAppointments: CitaI[] = [];
-      if(data != undefined){
-        updateAppointments = data;
-      }
-      updateAppointments.push(newAppointment);
-      this.citasConnection.doc(user.dni).set(newAppointment);
+      pendingAppointments = data.pendientes;
+      pendingAppointments.push(newAppointment);
+      this.citasConnection.doc(user.dni).set(pendingAppointments);
       appoinmentSus.unsubscribe();
     })
   }
 
 
   // Update
-  updateCita(dni, cita: CitaI) {
+  updateCita(id, cita: CitaI) {
 
   }
 
   // Delete
-  deleteCita(dni) {
-    this.citasConnection.doc<CitaI[]>(dni).delete();
+  deleteCita(id: number) {
+    
   }
 }

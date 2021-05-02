@@ -1,12 +1,8 @@
-<ion-header>
+<!--<ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button text="Volver" defaultHref="home"></ion-back-button>
-    </ion-buttons>
-    <ion-title *ngIf="!updating">Solicitando cita</ion-title>
-    <ion-title *ngIf="updating">Editando cita</ion-title>
+    <ion-title>solicitar</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header>-->
 
 <ion-content [fullscreen]="true">
 
@@ -16,7 +12,7 @@
       <div class="userData">
         <ion-grid>
           <ion-row>
-            <ion-col size="4" class="avatar">
+            <ion-col class="avatar">
               <img src="https://i.musicaimg.com/letras/resmax/bryant-myers.jpg" alt="Avatar">
             </ion-col>
             <div  *ngIf="userInfo">
@@ -37,42 +33,39 @@
 
       <div class="solicitarFecha">Seleccione la fecha</div>
 
-      <ion-item class="rounded">
-        <ion-label>Elige día</ion-label>
-        <ion-datetime
-          id="fecha"
-          [(ngModel)]="daySelected"
-          [dayShortNames]="customDayShortNames"
-          [min]="minDate"
-          displayFormat="DD/MM/YYYY"
-          pickerFormat="DD/MM/YYYY"
-          monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
-        ></ion-datetime>
-      </ion-item>
+      <form [formGroup]="citaForm" (ngSubmit)="onSubmit()">
+        <ion-item class="rounded">
+          <ion-label>Elige día</ion-label>
+          <ion-datetime
+            id="fecha"
+            formControlName="fecha"
+            [dayShortNames]="customDayShortNames"
+            [min]="minDate"
+            displayFormat="DD/MM/YYYY"
+            monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+          ></ion-datetime>
+        </ion-item>
 
-      <div class="solicitarFecha">Selecciona la hora</div>
+        <div class="solicitarFecha">Selecciona la hora</div>
 
-      <ion-item class="rounded">
-        <ion-label>Elige hora</ion-label>
-        <ion-datetime
-          id="hora"
-          [(ngModel)]="hourSelected"
-          displayFormat="HH:mm"
-          [minuteValues]="minuteValues"
-          [hourValues]="hourValues"
+        <ion-item class="rounded">
+          <ion-label>Elige hora</ion-label>
+          <ion-datetime
+            id="hora"
+            displayFormat="hh:mm A" 
+            pickerFormat="HH:mm"
+            [minuteValues]="minuteValues"
+            [hourValues]="hourValues"
+            formControlName="hora"
+          ></ion-datetime>
+        </ion-item>
 
-        ></ion-datetime>
-      </ion-item>
-
-      <ion-button *ngIf="!updating" shape="round" expand="block" (click)="onSubmit()">
-        <ion-icon  slot="start" name="receipt-outline"></ion-icon>
-        Solicitar cita
+        <ion-button shape="round" expand="block" type="submit">
+          <ion-icon  slot="start" name="receipt-outline"></ion-icon>
+          Solicitar cita
       </ion-button>
 
-      <ion-button *ngIf="updating" shape="round" expand="block" (click)="onSubmit()">
-        <ion-icon  slot="start" name="receipt-outline"></ion-icon>
-        Editar cita
-      </ion-button>
+    </form>
 
     </div>
 

@@ -29,13 +29,18 @@ const routes: Routes = [
     canActivate: [ AngularFireAuthGuard ],
     data: { authGuardPipe: redirectLoggedInToHome }
   },
+  {
+    path: 'citas',
+    loadChildren: () => import('./citas/citas.module').then( m => m.CitasPageModule)
+  },
+
 
   
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload', preloadingStrategy: PreloadAllModules }, )
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]
 })

@@ -18,6 +18,11 @@ export class AppComponent {
       url: '/home',
       icon: 'home'
     },
+    {
+      title: 'Citas',
+      url: '/citas',
+      icon: 'calendar'
+    }
   ];
 
   constructor(
