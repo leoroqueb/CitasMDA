@@ -121,7 +121,7 @@ export class CitasService {
         switch(appointment.estado){
           case "Pendiente": {
             //Antes de eliminar la cita, decrementamos el aforo de la hora antes de ser modificada.
-            this.updateActualCapacityInDay(this.appointmentToEdit.fecha, this.appointmentToEdit.hora,false);
+            this.updateActualCapacityInDay(appointment.fecha, appointment.hora,false);
             //Cogemos la cita y la eliminamos
             index = data.pendientes.indexOf(appointment);
             data.pendientes.splice(index,1);
@@ -134,7 +134,7 @@ export class CitasService {
           }
           case "Modificada":{
             //Antes de eliminar la cita, decrementamos el aforo de la hora antes de ser modificada.
-            this.updateActualCapacityInDay(this.appointmentToEdit.fecha, this.appointmentToEdit.hora,false);
+            this.updateActualCapacityInDay(appointment.fecha, appointment.hora,false);
             //Cogemos la cita y la eliminamos
             index = data.modificadas.indexOf(appointment);
             data.modificadas.splice(index,1);
@@ -147,7 +147,7 @@ export class CitasService {
           }
           case "Finalizada": {
             //Antes de eliminar la cita, decrementamos el aforo de la hora antes de ser modificada.
-            this.updateActualCapacityInDay(this.appointmentToEdit.fecha, this.appointmentToEdit.hora,false);
+            this.updateActualCapacityInDay(appointment.fecha, appointment.hora,false);
             //Cogemos la cita y la eliminamos
             index = data.finalizadas.indexOf(appointment);
             data.finalizadas.splice(index,1);
