@@ -28,29 +28,33 @@ export class HomePage implements OnInit{
   }
 
   ngOnInit(){
-    this.userService.getMyselfData().then(data => this.myDataConnection =  data.subscribe(user => {
-      //Aquí cogemos los datos del usuario
-      this.myData = user;
+    this.showUserInfo();
+  }
 
+
+
+  async showUserInfo(){
+    (await this.userService.getMyselfData()).subscribe(user => {
+      //Aquí cogemos los datos del usuario
+      console.log("entro")
+      this.myData = user;
+      this.showAppointments(user.dni);
+    });
+  }
+
+  showAppointments(dni: string){
       //nos conectamos a la bd de citas y las mostramos
-      //PROBLEMA, LO ESTA MOSTRANDO REPETIDAS VECES
-      this.citasService.getAppointments(this.myData.dni).subscribe(citas => {
-        //Metemos en un array de tipo CitaI todas las citas de la BD del usuario
-        citas.pendientes.forEach(cita => {
-          this.allApointments.push(cita);
-        })
-        citas.modificadas.forEach(cita => {
-          this.allApointments.push(cita);
-        });
-        citas.finalizadas.forEach(cita => {
-          this.allApointments.push(cita);
-        });
-        
-        //Muestra en el front todas las citas
-        this.citas = this.allApointments;
-        
+      this.citasService.getAllApointmentsInAnArray(dni).then(data => {
+        this.allApointments = data;
       })
-    }))
+     
+  }
+
+  doRefresh(ev, data: UsuariosI){
+    this.showAppointments(data.dni);
+    setTimeout(() => {
+      ev.target.complete();
+    }, 2000);
   }
 
   editAppointment(appointment: CitaI){
@@ -63,6 +67,7 @@ export class HomePage implements OnInit{
     this.citasService.deleteAppointment(appointment).then(() => {
       this.refactor.presentToast("Su cita ha sido eliminada correctamente");
     });
+    
   }
 
   

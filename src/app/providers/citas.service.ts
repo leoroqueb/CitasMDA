@@ -51,6 +51,8 @@ export class CitasService {
     
   }
 
+  
+
   registerUserToAppointmentsBD(dni: string){
     let appointmentArray: CitasArrayI = {
       pendientes: [],
@@ -205,12 +207,14 @@ export class CitasService {
           if(confirmed){
             newAppointment = this.addAppointment(user, day, schedule); 
             this.sendConfirmationEMail(user, newAppointment);
+            this.capacitySus.unsubscribe();
             this.router.navigateByUrl('/home');
             
           }else{
             this.capacitySus.unsubscribe();
             //La cita no se registra y te manda de vuelta al home
             this.refactor.presentToast("Su cita no ha sido registrada.");
+            this.capacitySus.unsubscribe();
             this.router.navigateByUrl('/home');
           }
         }).catch(err => {
@@ -283,8 +287,33 @@ export class CitasService {
   }
 
 
-  getAppointments(userDNI: string): Observable<CitasArrayI>{
+  getAppointmentsDoc(userDNI: string): Observable<CitasArrayI>{
     return this.citasConnection.doc<CitasArrayI>(userDNI).valueChanges();
+  }
+
+  getAllApointmentsInAnArray(userDNI: string): Promise<CitaI[]>{
+    let appointmentsArray: CitaI[] = [];
+    let appointmentsArraySus: Subscription;
+    return new Promise ((resolve, reject) => {
+      appointmentsArraySus = this.citasConnection.doc<CitasArrayI>(userDNI).valueChanges().subscribe(appointments => {
+        
+        appointments.pendientes.forEach(cita => {
+          appointmentsArray.push(cita);
+        })
+        appointments.modificadas.forEach(cita => {
+          appointmentsArray.push(cita);
+        });
+        appointments.finalizadas.forEach(cita => {
+          appointmentsArray.push(cita);
+        });
+        if(appointmentsArray == []){
+          reject("No tiene ninguna cita")
+        }else{
+          resolve(appointmentsArray);
+        }
+        appointmentsArraySus.unsubscribe();
+      })
+    })
   }
 
   
@@ -304,7 +333,7 @@ export class CitasService {
     }
 
     //Cogemos las citas existentes de la BD y actualizamos las pendientes para añadir la cita
-    this.appoinmentSus = this.getAppointments(user.dni).subscribe(data => {
+    this.appoinmentSus = this.getAppointmentsDoc(user.dni).subscribe(data => {
       data.pendientes.push(newAppointment);
       //Actualizamos la DB
       this.citasConnection.doc(user.dni).set(data);
