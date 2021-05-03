@@ -1,20 +1,19 @@
-<!--<ion-header>
+<!-- <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>solicitar</ion-title>
+    
   </ion-toolbar>
-</ion-header>-->
+</ion-header> -->
 
 <ion-content [fullscreen]="true">
-
   <div id="container">
-
     <div id="userInfo">
+      <!-- Darle algo de estilismo al back button para que quede cremita -->
       <div class="userData">
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="home" (click)="resetEditing()"></ion-back-button>
+        </ion-buttons>
         <ion-grid>
           <ion-row>
-            <ion-col class="avatar">
-              <img src="https://i.musicaimg.com/letras/resmax/bryant-myers.jpg" alt="Avatar">
-            </ion-col>
             <div  *ngIf="userInfo">
               <ion-col class="infoUser">
                 <p><ion-icon name="person-outline"></ion-icon> {{userInfo.nombre}}</p>
@@ -60,12 +59,12 @@
         ></ion-datetime>
       </ion-item>
 
-      <ion-button *ngIf="!updating" shape="round" expand="block" (click)="onSubmit(userInfo)">
+      <ion-button *ngIf="!isEditing" shape="round" expand="block" (click)="createAppointment(userInfo)">
         <ion-icon  slot="start" name="receipt-outline"></ion-icon>
         Solicitar cita
       </ion-button>
 
-      <ion-button *ngIf="updating" shape="round" expand="block" (click)="onSubmit(userInfo)">
+      <ion-button *ngIf="isEditing" shape="round" expand="block" (click)="editAppointment(userInfo)">
         <ion-icon  slot="start" name="receipt-outline"></ion-icon>
         Editar cita
       </ion-button>
