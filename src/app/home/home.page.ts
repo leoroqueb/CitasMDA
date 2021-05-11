@@ -14,47 +14,48 @@ import { Refactor } from '../refactor/refactor.service';
 })
 
 export class HomePage implements OnInit{
-  myDataConnection: Subscription  
+  myDataConnection: Subscription;
+  appointmentsConnection: Subscription;
+
   myData: UsuariosI;
   allApointments: CitaI[] = [];
   citas: CitaI[] = [];
+
+
   constructor(
     private userService: UsuariosService,
     private citasService: CitasService,
     private router: Router,
-    private refactor: Refactor
+    private refactor: Refactor,
   ) {
 
   }
 
-  ngOnInit(){
-    this.showUserInfo();
-  }
-
-
-
-  async showUserInfo(){
-    (await this.userService.getMyselfData()).subscribe(user => {
-      //Aquí cogemos los datos del usuario
-      console.log("entro")
+  async ngOnInit(){
+    this.myDataConnection = (await this.userService.getMyselfData()).subscribe(user => {
+      //Aquí cogemos los datos del usuario y mostramos sus citas asociadas.
       this.myData = user;
-      this.showAppointments(user.dni);
+        this.showAppointments(user.dni);
+      });    
+  }
+
+  showAppointments(dni:string){
+    this.appointmentsConnection = this.citasService.getAppointmentsDoc(dni).subscribe(appointments => {
+      //Tenemos que limpiar el array antes de actualizarlo. Si no, se van a repetir las citas.
+      this.allApointments = [];
+
+      //Recogemos de la BD todas las citas y las metemos en el array que las va a mostrar en pantalla
+      appointments.pendientes.forEach(cita => {
+        this.allApointments.push(cita);
+      });
+      appointments.modificadas.forEach(cita => {
+        this.allApointments.push(cita);
+      });
+      appointments.finalizadas.forEach(cita => {
+        this.allApointments.push(cita);
+      });
+      
     });
-  }
-
-  showAppointments(dni: string){
-      //nos conectamos a la bd de citas y las mostramos
-      this.citasService.getAllApointmentsInAnArray(dni).then(data => {
-        this.allApointments = data;
-      })
-     
-  }
-
-  doRefresh(ev, data: UsuariosI){
-    this.showAppointments(data.dni);
-    setTimeout(() => {
-      ev.target.complete();
-    }, 2000);
   }
 
   editAppointment(appointment: CitaI){
@@ -66,10 +67,6 @@ export class HomePage implements OnInit{
   deleteCita(appointment: CitaI){
     this.citasService.deleteAppointment(appointment).then(() => {
       this.refactor.presentToast("Su cita ha sido eliminada correctamente");
-    });
-    
+    }); 
   }
-
-  
-
 }

@@ -291,31 +291,6 @@ export class CitasService {
     return this.citasConnection.doc<CitasArrayI>(userDNI).valueChanges();
   }
 
-  getAllApointmentsInAnArray(userDNI: string): Promise<CitaI[]>{
-    let appointmentsArray: CitaI[] = [];
-    let appointmentsArraySus: Subscription;
-    return new Promise ((resolve, reject) => {
-      appointmentsArraySus = this.citasConnection.doc<CitasArrayI>(userDNI).valueChanges().subscribe(appointments => {
-        
-        appointments.pendientes.forEach(cita => {
-          appointmentsArray.push(cita);
-        })
-        appointments.modificadas.forEach(cita => {
-          appointmentsArray.push(cita);
-        });
-        appointments.finalizadas.forEach(cita => {
-          appointmentsArray.push(cita);
-        });
-        if(appointmentsArray == []){
-          reject("No tiene ninguna cita")
-        }else{
-          resolve(appointmentsArray);
-        }
-        appointmentsArraySus.unsubscribe();
-      })
-    })
-  }
-
   
   addAppointment(user: UsuariosI, day: string, schedule: string): CitaI{
     //Creamos la cita con los datos recogidos
