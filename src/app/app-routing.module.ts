@@ -33,7 +33,14 @@ const routes: Routes = [
     path: 'solicitar',
     loadChildren: () => import('./solicitar/solicitar.module').then( m => m.SolicitarPageModule)
   },
-  
+  {
+    path: 'home-admin',
+    loadChildren: () => import('./home-admin/home-admin.module').then( m => m.HomeAdminPageModule)
+  },  {
+    path: 'modal-horario',
+    loadChildren: () => import('./modal-horario/modal-horario.module').then( m => m.ModalHorarioPageModule)
+  },
+
 ];
 
 @NgModule({
