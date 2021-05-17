@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { AforoService } from '../providers/aforo.service';
+import { Refactor } from '../refactor/refactor.service';
 
 @Component({
   selector: 'app-modal-horario',
@@ -24,9 +26,11 @@ export class ModalHorarioPage implements OnInit{
   hourSelected = '';
   aforoSelected = 5; // Valor default
 
-  constructor(public modalController: ModalController) {
-
-  }
+  constructor(
+    public modalController: ModalController,
+    private aforoService: AforoService,
+    private refactor: Refactor
+    ) { }
 
   ngOnInit() {
     if(this.dia !== undefined && this.horario !== undefined){
@@ -47,7 +51,8 @@ export class ModalHorarioPage implements OnInit{
   }
 
   submitNuevo(){
-    console.log(this.daySelected, this.hourSelected, this.aforoSelected);
+    //this.refactor.dayReformat(this.daySelected);
+    this.aforoService.addNewCapacity(this.daySelected, this.hourSelected, this.aforoSelected);
   }
 
   submitEditar(){

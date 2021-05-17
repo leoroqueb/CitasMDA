@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { AuthService } from '../providers/auth.service';
-import { CitasService } from '../providers/citas.service';
 import { Refactor } from '../refactor/refactor.service';
 
 
@@ -59,9 +58,16 @@ export class LoginPage implements OnInit {
     this.authService.loginUser(this.login.email, this.login.password )
     .then(() =>{
       this.refactor.presentToast('¡Bienvenido/a de nuevo!');
-      this.router.navigate(['home']);
+      if(this.login.email == "admin@hospital.com"){
+        this.router.navigateByUrl('home-admin');
+      }else{
+        this.router.navigateByUrl('home');
+      }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      this.refactor.presentToast("Los datos introducidos no son correctos");
+    });
   }
 
 }

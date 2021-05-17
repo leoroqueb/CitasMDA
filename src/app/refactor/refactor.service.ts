@@ -20,6 +20,35 @@ export class Refactor {
       toast.present();
     }
 
+    dayReformat(day:string): string{
+      let auxiliar:string = "";
+      let newDay:string[];
+      
+      if(day.length > 10){
+        auxiliar = day.substring(0,10);
+        newDay = auxiliar.split("-");
+        return newDay.reverse().join("-");
+      }else{
+        console.log("El parámetro introducido no es correcto o la fecha ya ha sido modificada.");
+        return null;
+      }
+        
+      
+      
+    }
+
+    scheduleReformat(schedule:string): string{
+      let newSchedule:string = "";
+        if(schedule.length > 5){
+          newSchedule = schedule.substring(11,16);
+          return newSchedule;
+        }else{
+          console.log("El parámetro introducido no es correcto o la fecha ya ha sido modificada.");
+          return null;
+        }
+      
+    }
+
    
 }
 

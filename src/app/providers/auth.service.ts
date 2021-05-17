@@ -27,10 +27,19 @@ export class AuthService {
     }
   }
     //LOGIN USER CON EMAIL Y CONTRASEÑA
-  async loginUser(email: string, password: string): Promise<any>{
+  async loginUser(email: string, password: string): Promise<firebase.User>{
+    return new Promise(async (resolve, reject) => {
+      await this.afireauth.signInWithEmailAndPassword(email, password).then(data => {
+        if(data.user){
+          this.updateCredencialData(data.user);
+          resolve(data.user);
+        }
+      })
+      .catch(err => reject(err));
+    })
     try {
       //Obtenemos las credenciales del inicio de sesion
-      const {user} = await this.afireauth.signInWithEmailAndPassword(email, password);
+      const {user} = await this.afireauth.signInWithEmailAndPassword(email, password)
       if(user){
         //Si todo ha ido bien, actualizamos las credenciales   
         this.updateCredencialData(user);
