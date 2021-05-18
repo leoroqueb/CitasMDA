@@ -21,7 +21,7 @@ export class AforoService {
    * es necesario suscribirse a ellos en el momento en que llames a la función.
    * @param schedule Hora específica a la que quieres ver el aforo
    * @param day Parámetro opcional para ver el aforo concreto de un día. Si no está declarado, busca la hora del día actual.
-   * @template  day El formato TIENE que ser DD-MM-YY, donde YY son los últimos dos dígitos del año.
+   * @template  day El formato TIENE que ser DD-MM-YYYY
    * @template schedule El formato TIENE que ser HH:MM. 
    * 
    */
@@ -49,6 +49,7 @@ export class AforoService {
     }
 
     addNewCapacity(day: string, schedule: string, newCapacity: number): Promise<void>{
+
       let capacity: AforoI = {
         actual: 0,
         maximo: newCapacity
@@ -57,14 +58,14 @@ export class AforoService {
       let reformatedDay: string = "";
       let reformatedSchedule: string = "";
       
+      //Debido a que los datos del datepicker vienen en formato UTC, hay que hacerles un reformat para que coincidan con la BD
+      //En caso de que alguno de los métodos devuelva null, significa que el dia ya está formateado
       if((reformatedDay = this.refactor.dayReformat(day)) == null){
         reformatedDay = day;
       }
       if((reformatedSchedule = this.refactor.scheduleReformat(schedule)) == null){
         reformatedSchedule = schedule;
       }
-
-      
       return this.horariosConnection.doc(reformatedDay).collection(reformatedSchedule).doc("aforo"+reformatedSchedule).set(capacity);
     }
 }

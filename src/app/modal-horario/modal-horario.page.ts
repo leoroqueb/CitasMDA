@@ -29,7 +29,8 @@ export class ModalHorarioPage implements OnInit{
   constructor(
     public modalController: ModalController,
     private aforoService: AforoService,
-    private refactor: Refactor
+    private refactor: Refactor,
+    
     ) { }
 
   ngOnInit() {
@@ -52,7 +53,15 @@ export class ModalHorarioPage implements OnInit{
 
   submitNuevo(){
     //this.refactor.dayReformat(this.daySelected);
-    this.aforoService.addNewCapacity(this.daySelected, this.hourSelected, this.aforoSelected);
+    this.aforoService.addNewCapacity(this.daySelected, this.hourSelected, this.aforoSelected)
+    .then(() => {
+      this.refactor.presentToast('El nuevo horario ha sido añadido con éxito.');
+      this.dismiss();
+    })
+    .catch(() => {
+      this.refactor.presentToast('Ha ocurrido un error, inténtelo de nuevo.');
+      this.dismiss();
+    });
   }
 
   submitEditar(){

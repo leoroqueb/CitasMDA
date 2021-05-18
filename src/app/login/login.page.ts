@@ -57,6 +57,7 @@ export class LoginPage implements OnInit {
   logInUser(){
     this.authService.loginUser(this.login.email, this.login.password )
     .then(() =>{
+      //Si el logueo es correcto, y el usuario que ha entrado es el admin, se le redirige a su página
       this.refactor.presentToast('¡Bienvenido/a de nuevo!');
       if(this.login.email == "admin@hospital.com"){
         this.router.navigateByUrl('home-admin');
