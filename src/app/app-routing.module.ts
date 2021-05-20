@@ -32,7 +32,11 @@ const routes: Routes = [
   {
     path: 'citas',
     loadChildren: () => import('./citas/citas.module').then( m => m.CitasPageModule)
+  },  {
+    path: 'gestion-perfil',
+    loadChildren: () => import('./gestion-perfil/gestion-perfil.module').then( m => m.GestionPerfilPageModule)
   },
+
 
 
   
