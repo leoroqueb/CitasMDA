@@ -31,7 +31,7 @@ export class HomeAdminPage {
   // Modal Editar Horario
   async presentEditModal(dia, horario, aforo) {
     const modal = await this.modalController.create({
-      component: ModalHorarioPage,
+      component: ModalHorarioPage, 
       cssClass: 'my-custom-class',
       componentProps: {
         title: 'Editar horario',

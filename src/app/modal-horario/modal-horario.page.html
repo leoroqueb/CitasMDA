@@ -26,13 +26,13 @@
         ></ion-datetime>
       </ion-item>
 
-      <p>Hora</p>
+      <p>Desde</p>
 
       <ion-item class="rounded">
         <ion-label>Elige hora</ion-label>
         <ion-datetime
           id="hora"
-          [(ngModel)]="hourSelected"
+          [(ngModel)]="fromHour"
           displayFormat="HH:mm"
           [minuteValues]="minuteValues"
           [hourValues]="hourValues"
@@ -40,10 +40,24 @@
         ></ion-datetime>
       </ion-item>
 
-      <p>Aforo</p>
+      <p>Hasta</p>
 
       <ion-item class="rounded">
-        <ion-label>Elige aforo</ion-label>
+        <ion-label>Elige hora</ion-label>
+        <ion-datetime
+          id="hastaHora"
+          [(ngModel)]="toHour"
+          displayFormat="HH:mm"
+          [minuteValues]="minuteValues"
+          [hourValues]="hourValues"
+
+        ></ion-datetime>
+      </ion-item>
+
+      <p>Aforo máximo</p>
+
+      <ion-item class="rounded">
+        <!-- <ion-label>Aforo máximo para la hora seleccionada</ion-label> -->
         <ion-input type="number" [(ngModel)]="aforoSelected"></ion-input>
       </ion-item>
 

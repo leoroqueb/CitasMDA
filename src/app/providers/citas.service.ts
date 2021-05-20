@@ -6,6 +6,7 @@ import { CitaI, AforoI, CitasArrayI } from '../models/citas.model'
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Refactor } from '../refactor/refactor.service';
+import { AforoService } from './aforo.service';
 
 
 declare let Email: any;
@@ -44,7 +45,8 @@ export class CitasService {
     private dbCitas: AngularFirestore,
     private alertController: AlertController,
     private router: Router,
-    private refactor: Refactor
+    private refactor: Refactor,
+    private aforoService: AforoService
   ) {
     this.horariosConnection = this.dbHorarios.collection(`horarios`);
     this.citasConnection = this.dbCitas.collection(`citas`);
@@ -66,7 +68,7 @@ export class CitasService {
     //Si hay algo que editar
     if(this.editing && this.appointmentToEdit != undefined){
       //Comprobamos aforo de la fecha nueva
-      this.editingSus = this.getCapacityInDay(newSchedule, newDay).subscribe(capacity => {
+      this.editingSus = this.aforoService.getCapacityOnDayAndSchedule(newSchedule, newDay).subscribe(capacity => {
         if (capacity.actual < capacity.maximo){
           //Le pedimos confirmación
           this.confirmAppointment(newDay, newSchedule)
@@ -166,42 +168,9 @@ export class CitasService {
     
   }
 
-
-  /**
-   * Función para obtener el aforo máximo de una hora en un día específico. Para usar estos datos,
-   * es necesario suscribirse a ellos en el momento en que llames a la función.
-   * @param schedule Hora específica a la que quieres ver el aforo
-   * @param day Parámetro opcional para ver el aforo concreto de un día. Si no está declarado, busca la hora del día actual.
-   * @template  day El formato TIENE que ser DD-MM-YY, donde YY son los últimos dos dígitos del año.
-   * @template schedule El formato TIENE que ser HH:MM. 
-   * 
-   */
-  getCapacityInDay(schedule: string, day ?:string): Observable<AforoI>{
-    if(day != undefined){
-      return this.horariosConnection.doc(day).collection(schedule).doc<AforoI>("aforo"+schedule).valueChanges();
-    }else{
-      let date = new Date();
-      let day = date.getUTCDate();
-      //Aumentamos en 1 el mes que nos proporciona el Date (entiendo que angular considera enero como mes 0)
-      let month = date.getMonth()+1;
-      let year = date.getUTCFullYear();
-
-      let today:string = "";
-
-      if(month < 10){
-        //El método getMonth te lo devuelve como number, para mantener el formato MM hay que añadirle un 0
-        today = day + "-" + "0" + month + "-" + year.toString();
-      }else{
-        today = day + "-" + month + "-" + year.toString();
-      }
-
-      return this.horariosConnection.doc(today).collection(schedule).doc<AforoI>("aforo"+schedule).valueChanges();
-    }
-  }
-  
   checkCapacityAvailableAndAddAppointment(day: string, schedule: string, user: UsuariosI): void{
     let newAppointment: CitaI;
-    this.capacitySus = this.getCapacityInDay(schedule, day).subscribe(capacity => {
+    this.capacitySus = this.aforoService.getCapacityOnDayAndSchedule(schedule, day).subscribe(capacity => {
       if(capacity.actual < capacity.maximo){
         this.confirmAppointment(day, schedule).then(confirmed =>{
           if(confirmed){
@@ -330,7 +299,7 @@ export class CitasService {
   updateActualCapacityInDay(day: string, schedule: string, addOrSustract: boolean){
     let updateCapacitySus: Subscription;
     //Cogemos el aforo actual en el horario en que se ha confirmado la cita
-    updateCapacitySus = this.getCapacityInDay(schedule, day).subscribe(capacity => {
+    updateCapacitySus = this.aforoService.getCapacityOnDayAndSchedule(schedule, day).subscribe(capacity => {
       //Si addOrSustract es true, incrementamos el aforo, si no, lo decrementamos.
       if(addOrSustract){
         capacity.actual++;

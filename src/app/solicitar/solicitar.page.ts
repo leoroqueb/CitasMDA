@@ -82,9 +82,9 @@ export class SolicitarPage implements OnInit {
       // [2] Día
       const fechas = fecha.split('-');
       const fechaModificada = fechas.reverse().join('-');
-
+      
       //Hacemos la gestión de la BD. Comprobamos si el aforo no está lleno y añadimos la cita a la BD.
-      this.citasService.checkCapacityAvailableAndAddAppointment('27-04-21', '9:20', user)
+      this.citasService.checkCapacityAvailableAndAddAppointment(fechaModificada, hora, user);
     }
   }
 
@@ -100,8 +100,10 @@ export class SolicitarPage implements OnInit {
       // [1] Mes
       // [2] Día
       const fechas = fecha.split('-');
+      //Hay que darle la vuelta a la fecha para que tenga el formato correcto
       const fechaModificada = fechas.reverse().join('-');
-      this.citasService.editAppointment('27-04-21', '9:40');
+
+      this.citasService.editAppointment(fechaModificada, hora);
     }
     
   }
