@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CitasPageRoutingModule } from './citas-routing.module';
+import { ModalHorarioPageRoutingModule } from './modal-horario-routing.module';
 
-import { CitasPage } from './citas.page';
+import { ModalHorarioPage } from './modal-horario.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CitasPageRoutingModule
+    ModalHorarioPageRoutingModule
   ],
-  declarations: [CitasPage]
+  declarations: [ModalHorarioPage]
 })
-export class CitasPageModule {}
+export class ModalHorarioPageModule {}

@@ -1,4 +1,3 @@
-import { Time } from "@angular/common";
 
 export interface CitaI {
     dniUsuarioAsociado: string;
@@ -12,6 +11,12 @@ export interface CitaI {
 export interface HorariosI {
     hora: string;
     aforo?: string;
+}
+
+export interface CitasArrayI{
+    pendientes: CitaI[];
+    modificadas: CitaI[];
+    finalizadas: CitaI[];
 }
 
 export interface AforoI {

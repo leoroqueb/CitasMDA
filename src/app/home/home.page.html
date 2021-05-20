@@ -1,19 +1,11 @@
 <ion-content [fullscreen]="true">
-
+  <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event, myData)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher> -->
   <div id="container">
 
     <div class="background">
-      <!-- <ion-icon name="menu-outline" id="menuIcon"></ion-icon> -->
-
-      <!--<ion-toolbar class="navbar">
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-          <div class="wrapp-logo">
-            <div class="app-logo"></div>
-          </div>
-        </ion-buttons>
-      </ion-toolbar>-->
-
       <div class="welcome">
         <ion-buttons class="menuButton" slot="start"><ion-menu-button></ion-menu-button> </ion-buttons>
         <div>
@@ -24,33 +16,44 @@
       </div>
 
     </div>
-
-    <ion-card>
-      <ion-card-header>
-        <ion-card-subtitle>Próxima cita</ion-card-subtitle>
-      </ion-card-header>
-
-      <ion-card-content>
-        <div class="card-cita">
-          <div class="fecha">
-            <ion-icon name="time-outline"></ion-icon>
-            <p>24/03/2021</p>
-          </div>
-          <div class="lugar">
-            <ion-icon name="navigate-outline"></ion-icon>
-            <p>Hospital San Roque</p>
-          </div>
-        </div>
-
-      </ion-card-content>
-    </ion-card>
-
+    
+        <ion-card *ngFor="let cita of allApointments" >
+          <ion-card-header>
+            <ion-card-subtitle>Cita {{cita.estado}}</ion-card-subtitle>
+          </ion-card-header>
+    
+          <ion-card-content>
+                <div class="card-cita">
+                  <div class="fecha">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    <p> {{cita.fecha}} </p>
+                  </div>
+                  <div class="hora">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <p> {{cita.hora}}</p>
+                  </div>
+                  <div class="item-note item-end">
+                    <button ion-button clear (click)="editAppointment(cita)">
+                      <ion-icon name="create" ></ion-icon>
+                    </button>
+                    <button ion-button clear (click)="deleteCita(cita)">
+                      <ion-icon name="trash" ></ion-icon>
+                    </button>
+                  </div>
+                </div>
+          </ion-card-content>
+        </ion-card>
+    
+     
+    
+    
   </div>
 
   <!-- Botón flotante -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="light" routerLink="/citas/solicitar">
+    <ion-fab-button color="light" routerLink="/solicitar">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  
 </ion-content>

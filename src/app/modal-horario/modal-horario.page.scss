@@ -1,0 +1,14 @@
+#modal-horario-content{
+  height: 100%;
+
+  #modal-horario-body{
+    margin: 1.5em;
+    .rounded{
+      border-radius: 20px;
+    }
+    ion-button{
+      margin-top: 1em;
+    }
+  }
+
+}

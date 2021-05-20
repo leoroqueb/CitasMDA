@@ -22,11 +22,10 @@ export class LoginPage implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private refactor: Refactor
+    private refactor: Refactor,
   ) { }
 
   ngOnInit() {
-
       $('body').on('click', (e) => {
         if (!$(e.target).hasClass('blockwhite')
           && !$(e.target).parent().hasClass('blockwhite')
@@ -58,10 +57,18 @@ export class LoginPage implements OnInit {
   logInUser(){
     this.authService.loginUser(this.login.email, this.login.password )
     .then(() =>{
+      //Si el logueo es correcto, y el usuario que ha entrado es el admin, se le redirige a su página
       this.refactor.presentToast('¡Bienvenido/a de nuevo!');
-      this.router.navigate(['home']);
+      if(this.login.email == "admin@hospital.com"){
+        this.router.navigateByUrl('home-admin');
+      }else{
+        this.router.navigateByUrl('home');
+      }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      this.refactor.presentToast("Los datos introducidos no son correctos");
+    });
   }
 
 }

@@ -30,16 +30,18 @@ const routes: Routes = [
     data: { authGuardPipe: redirectLoggedInToHome }
   },
   {
-    path: 'citas',
-    loadChildren: () => import('./citas/citas.module').then( m => m.CitasPageModule)
-  },  {
-    path: 'gestion-perfil',
-    loadChildren: () => import('./gestion-perfil/gestion-perfil.module').then( m => m.GestionPerfilPageModule)
+    path: 'solicitar',
+    loadChildren: () => import('./solicitar/solicitar.module').then( m => m.SolicitarPageModule)
+  },
+  {
+    path: 'home-admin',
+    loadChildren: () => import('./home-admin/home-admin.module').then( m => m.HomeAdminPageModule)
+  },
+  {
+    path: 'modal-horario',
+    loadChildren: () => import('./modal-horario/modal-horario.module').then( m => m.ModalHorarioPageModule)
   },
 
-
-
-  
 ];
 
 @NgModule({

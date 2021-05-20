@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div id="modal-horario-content">
+    <div id="modal-horario-body">
+      <p>Horario</p>
+
+      <ion-item class="rounded">
+        <ion-label>Elige día</ion-label>
+        <ion-datetime
+          id="fecha"
+          [(ngModel)]="daySelected"
+          [dayShortNames]="customDayShortNames"
+          [min]="minDate"
+          displayFormat="DD/MM/YYYY"
+          pickerFormat="DD/MM/YYYY"
+          monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+        ></ion-datetime>
+      </ion-item>
+
+      <p>Desde</p>
+
+      <ion-item class="rounded">
+        <ion-label>Elige hora</ion-label>
+        <ion-datetime
+          id="hora"
+          [(ngModel)]="fromHour"
+          displayFormat="HH:mm"
+          [minuteValues]="minuteValues"
+          [hourValues]="hourValues"
+
+        ></ion-datetime>
+      </ion-item>
+
+      <p>Hasta</p>
+
+      <ion-item class="rounded">
+        <ion-label>Elige hora</ion-label>
+        <ion-datetime
+          id="hastaHora"
+          [(ngModel)]="toHour"
+          displayFormat="HH:mm"
+          [minuteValues]="minuteValues"
+          [hourValues]="hourValues"
+
+        ></ion-datetime>
+      </ion-item>
+
+      <p>Aforo máximo</p>
+
+      <ion-item class="rounded">
+        <!-- <ion-label>Aforo máximo para la hora seleccionada</ion-label> -->
+        <ion-input type="number" [(ngModel)]="aforoSelected"></ion-input>
+      </ion-item>
+
+
+      <ion-button *ngIf="edit" shape="round" expand="block" (click)="submitEditar()">
+        <ion-icon slot="start" name="create-outline"></ion-icon>
+        Editar horario
+      </ion-button>
+
+      <ion-button *ngIf="!edit" shape="round" expand="block" (click)="submitNuevo()">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Crear horario
+      </ion-button>
+    </div>
+
+  </div>
+
+
+</ion-content>
