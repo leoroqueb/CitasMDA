@@ -23,7 +23,8 @@ export class ModalHorarioPage implements OnInit{
   minuteValues = ['0','20','40'];
 
   daySelected = '';
-  hourSelected = '';
+  fromHour = '';
+  toHour = '';
   aforoSelected = 5; // Valor default
 
   constructor(
@@ -35,7 +36,8 @@ export class ModalHorarioPage implements OnInit{
 
   ngOnInit() {
     if(this.dia !== undefined && this.horario !== undefined){
-      this.hourSelected = this.horario;
+      this.fromHour = this.horario;
+      this.toHour = this.horario;
       this.daySelected = this.dia;
       this.aforoSelected = this.aforo;
     }
@@ -53,7 +55,7 @@ export class ModalHorarioPage implements OnInit{
 
   submitNuevo(){
     //this.refactor.dayReformat(this.daySelected);
-    this.aforoService.addNewCapacity(this.daySelected, this.hourSelected, this.aforoSelected)
+    this.aforoService.addNewCapacity(this.daySelected, this.fromHour, this.aforoSelected)
     .then(() => {
       this.refactor.presentToast('El nuevo horario ha sido añadido con éxito.');
       this.dismiss();
@@ -65,6 +67,6 @@ export class ModalHorarioPage implements OnInit{
   }
 
   submitEditar(){
-    console.log(this.daySelected, this.hourSelected, this.aforoSelected);
+    console.log(this.daySelected, this.fromHour, this.aforoSelected);
   }
 }

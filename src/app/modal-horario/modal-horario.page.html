@@ -26,13 +26,27 @@
         ></ion-datetime>
       </ion-item>
 
-      <p>Hora</p>
+      <p>Desde</p>
 
       <ion-item class="rounded">
         <ion-label>Elige hora</ion-label>
         <ion-datetime
           id="hora"
-          [(ngModel)]="hourSelected"
+          [(ngModel)]="fromHour"
+          displayFormat="HH:mm"
+          [minuteValues]="minuteValues"
+          [hourValues]="hourValues"
+
+        ></ion-datetime>
+      </ion-item>
+
+      <p>Hasta</p>
+
+      <ion-item class="rounded">
+        <ion-label>Elige hora</ion-label>
+        <ion-datetime
+          id="hastaHora"
+          [(ngModel)]="toHour"
           displayFormat="HH:mm"
           [minuteValues]="minuteValues"
           [hourValues]="hourValues"
