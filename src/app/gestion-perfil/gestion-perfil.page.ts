@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ToastController} from '@ionic/angular';
 import { UsuariosI } from '../models/users.model';
 import { UsuariosService } from '../providers/usuarios.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Refactor } from '../refactor/refactor.service';
 
 @Component({
@@ -15,14 +14,13 @@ export class GestionPerfilPage implements OnInit {
   campos = {
     direccion: '',
     telefono: '',
-  };
+  }; 
 
 
   constructor(
-    public toastController: ToastController,
     private userService: UsuariosService,
-    private actRoute: ActivatedRoute,
-    private refactor: Refactor,
+    private router: Router,
+    private refactor: Refactor
   ) { }
 
   ngOnInit() {
@@ -35,6 +33,26 @@ export class GestionPerfilPage implements OnInit {
         this.userInfo = data;
       })
     })
+  }
+
+  modifyData(){
+    let modifiedUser: UsuariosI = this.userInfo;
+    if(this.campos.direccion != ''){
+      modifiedUser.direccion = this.campos.direccion;
+    }
+    if(this.campos.telefono != ''){
+      modifiedUser.telefono = this.campos.telefono;
+    }
+    this.userService.updateUsuario(modifiedUser)
+    .then(() => {
+      this.router.navigateByUrl('home');
+      this.refactor.presentToast("Sus datos han sido modificados correctamente.")
+    })
+    .catch(error => {
+      this.router.navigateByUrl('home');
+      this.refactor.presentToast("Ha habido un problema. Inténtelo de nuevo más tarde." + error);
+    });
+    
   }
 
 }
