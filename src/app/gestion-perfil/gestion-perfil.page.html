@@ -1,43 +1,54 @@
 
-<div id="container">
-  <div class="background">
-    <div class="welcome">
-      <ion-buttons class="menuButton" slot="start"><ion-menu-button></ion-menu-button> </ion-buttons>
-      <div>
-        <strong>Mis datos</strong>
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <div id="userInfo">
+      <!-- Darle algo de estilismo al back button para que quede cremita -->
+      <div class="userData">
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="home"></ion-back-button>
+        </ion-buttons>
+        <ion-grid>
+          <ion-row>
+            <div  *ngIf="userInfo">
+              <ion-col class="infoUser">
+                <p><ion-icon name="person-outline"></ion-icon> {{userInfo.nombre}}</p>
+                <p><ion-icon name="person-outline"></ion-icon> {{userInfo.apellidos}}</p>
+                <p><ion-icon name="mail-outline"></ion-icon> {{userInfo.email}}</p>
+                <p><ion-icon name="call-outline"></ion-icon> {{userInfo.telefono}}</p>
+                <p><ion-icon name="card-outline"></ion-icon> {{userInfo.ss}}</p>
+                <p><ion-icon name="location-outline"></ion-icon> {{userInfo.direccion}}</p>
+              </ion-col>
+            </div>
+          </ion-row>
+        </ion-grid>
+
+
       </div>
     </div>
 
+    <div id="gestionDatos">
+
+      <div class="solicitarFecha">Si desea modificar sus datos:</div>
+
+      <ion-item class="rounded">
+        <ion-label>Direccion:</ion-label>
+        <ion-input [(ngModel)]="campos.direccion"></ion-input>
+      </ion-item>
+
+      <ion-item class="rounded">
+        <ion-label>Teléfono:</ion-label>
+        <ion-input [(ngModel)]="campos.telefono"></ion-input>
+
+      </ion-item>
+
+      <ion-button shape="round" expand="block">
+        <ion-icon  slot="start" name="receipt-outline"></ion-icon>
+        Cambiar datos
+      </ion-button>
+    </div>
+
+
   </div>
 
-  <ion-content>
-    <ion-list-header>Mi información</ion-list-header>
-    <ion-list>
-      <ion-item>
-        <ion-label>Nombre:Tupo</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Apellidos: John</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>DNI:484848484</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Seguridad social:45435165484M</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Género:</ion-label>
-        <ion-input value="migenero"></ion-input>
-      </ion-item>
-      <ion-item class=locked>
-        <ion-label>Teléfono:</ion-label>
-        <ion-input value="mitelefono"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Direccion:</ion-label>
-        <ion-input value="midireccion"></ion-input>
-      </ion-item>
-    </ion-list>
-    <ion-button type=submit>Modificar mis datos</ion-button>
-  </ion-content>
-</div>
+
+</ion-content>

@@ -22,7 +22,13 @@ export class AppComponent {
       title: 'Solicitar cita',
       url: '/solicitar',
       icon: 'calendar'
-    }
+    },
+    {
+      title: 'Gestionar Perfil',
+      url: '/gestion-perfil',
+      icon: 'calendar'
+    },
+
   ];
 
   constructor(
