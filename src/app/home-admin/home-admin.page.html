@@ -10,7 +10,7 @@
       <div class="welcome">
         <ion-buttons class="menuButton" slot="start"><ion-menu-button></ion-menu-button> </ion-buttons>
         <div>
-          <strong>Administración </strong>
+          <strong>Administración</strong>
           <!--<p *ngIf="myData">{{myData.nombre}}</p>-->
         </div>
       </div>
@@ -19,7 +19,22 @@
     <!-- Bucle con los horarios -->
     <div id="horarios">
 
-      <p class="leyenda">Horarios - Aforo</p>
+      <p class="leyenda">Selecciona un día</p>
+
+      <ion-item class="rounded">
+        <ion-label>Elige día</ion-label>
+        <ion-datetime
+          id="fecha"
+          [(ngModel)]="daySelected"
+          (ionChange)="loadDates()"
+          [min]="minDate"
+          displayFormat="DD/MM/YYYY"
+          pickerFormat="DD/MM/YYYY"
+          monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+        ></ion-datetime>
+      </ion-item>
+
+      <p class="leyenda">Hora - Aforo</p>
 
       <ion-list>
         <!-- Sliding item with text options on both sides -->
@@ -27,7 +42,7 @@
 
           <ion-item>
             <ion-label><strong>12:00 - 12:20</strong></ion-label>
-            <ion-label>5</ion-label>
+            <ion-label class="date-aforo">5</ion-label>
           </ion-item>
 
           <ion-item-options side="end">
