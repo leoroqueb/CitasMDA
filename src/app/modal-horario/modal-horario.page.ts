@@ -54,20 +54,28 @@ export class ModalHorarioPage implements OnInit{
   }
 
   submitNuevo(){
-    console.log(this.toHour, this.fromHour);
-    //this.refactor.dayReformat(this.daySelected);
-    /*this.aforoService.addNewCapacity(this.daySelected, this.fromHour, this.aforoSelected)
-    .then(() => {
-      this.refactor.presentToast('El nuevo horario ha sido añadido con éxito.');
-      this.dismiss();
-    })
-    .catch(() => {
-      this.refactor.presentToast('Ha ocurrido un error, inténtelo de nuevo.');
-      this.dismiss();
-    });*/
+    
+    this.refactor.dayReformat(this.daySelected);
+    //Cogemos el valor de la hora inicial y la hora final, y mediante getScheduleArray obtenemos el array de horas a meter en la bd
+    let hoursArray = this.refactor.getScheduleArray(this.refactor.scheduleReformat(this.fromHour),this.refactor.scheduleReformat( this.toHour));
+
+    //Añadimos una a una las horas en la bd
+    for (let index = 0; index < hoursArray.length; index++) {
+      this.aforoService.addNewCapacity(this.daySelected, hoursArray[index], this.aforoSelected)
+      //Si hay algun error
+      .catch(() => {
+        this.refactor.presentToast('Ha ocurrido un error, inténtelo de nuevo.');
+        this.dismiss();
+      });
+    }
+    //Si todo va bien
+    this.refactor.presentToast('El nuevo horario ha sido añadido con éxito.');
+    this.dismiss();
   }
 
   submitEditar(){
-    console.log(this.daySelected, this.fromHour, this.aforoSelected);
+    if(this.fromHour == this.toHour){
+      this.aforoService.addNewCapacity(this.daySelected, this.fromHour, this.aforoSelected)
+    }
   }
 }

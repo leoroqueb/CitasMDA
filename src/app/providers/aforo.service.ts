@@ -68,4 +68,9 @@ export class AforoService {
       }
       return this.horariosConnection.doc(reformatedDay).collection(reformatedSchedule).doc("aforo"+reformatedSchedule).set(capacity);
     }
+
+    async getCapacityData(date: string){
+      const a = this.horariosConnection.doc(date);
+      
+    }
 }

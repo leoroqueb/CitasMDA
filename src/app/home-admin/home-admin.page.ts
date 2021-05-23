@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ModalHorarioPage } from '../modal-horario/modal-horario.page';
+import { AforoService } from '../providers/aforo.service';
+import { Refactor } from '../refactor/refactor.service';
 
 @Component({
   selector: 'app-home-admin',
@@ -12,7 +14,11 @@ export class HomeAdminPage {
   minDate: string = new Date().toISOString();
   daySelected: '';
 
-  constructor(public modalController: ModalController) { }
+  constructor(
+    public modalController: ModalController,
+    private aforoService: AforoService,
+    private refactor: Refactor,
+    ) { }
 
   // Editar horario
   editarHorario() {
@@ -70,8 +76,10 @@ export class HomeAdminPage {
     // date[0] - Año
     // date[1] - Mes
     // date[2] - Día
-    // Traigo de la BD las fechas bro
-
+    // Traigo de la BD las fechas bro 
+    
+    //this.aforoService.getCapacityData(date.reverse().join('-'));
+    this.refactor.presentToast("Ahora debería mostrarse el horario para la fecha " + date.reverse().join('-'));
   }
 
 }

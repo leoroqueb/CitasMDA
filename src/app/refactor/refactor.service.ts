@@ -32,9 +32,48 @@ export class Refactor {
         console.log("El parámetro introducido no es correcto o la fecha ya ha sido modificada.");
         return null;
       }
-        
       
-      
+    }
+
+    getScheduleArray(from: string, to: string): string[]{
+      let resultArray: string[] = [];
+      let minutesFrom = parseInt(from.substring(3,5));
+      let hourFrom = parseInt(from.substring(0,2));
+      let minutesTo = parseInt(to.substring(3,5));
+      let hourTo = parseInt(to.substring(0,2));
+
+      if(hourTo >= hourFrom){
+        let newHour: string = '';
+        while(hourFrom <= hourTo){
+          if(hourFrom != hourTo){
+            if(minutesFrom == 0){
+              newHour = hourFrom.toString() + ":" + minutesFrom.toString()+"0";
+            }else{
+              newHour = hourFrom.toString() + ":" + minutesFrom.toString();
+            }
+            resultArray.push(newHour);
+            minutesFrom += 20;
+            if(minutesFrom > 40){
+              minutesFrom = 0;
+              hourFrom ++;
+            }
+          }else{
+            while (minutesFrom < minutesTo){
+              if(minutesFrom == 0){
+                newHour = hourFrom.toString() + ":" + minutesFrom.toString()+"0";
+              }else{
+                newHour = hourFrom.toString() + ":" + minutesFrom.toString();
+              }
+              resultArray.push(newHour);
+              minutesFrom += 20;
+            }
+            //break the loop
+            break;
+          }
+        }
+        resultArray.push(to);
+        return(resultArray);
+      }
     }
 
     scheduleReformat(schedule:string): string{
