@@ -1,0 +1,54 @@
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <div id="userInfo">
+      <!-- Darle algo de estilismo al back button para que quede cremita -->
+      <div class="userData">
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="home"></ion-back-button>
+        </ion-buttons>
+        <ion-grid>
+          <ion-row>
+            <div  *ngIf="userInfo">
+              <ion-col class="infoUser">
+                <p><ion-icon name="person-outline"></ion-icon> {{userInfo.nombre}}</p>
+                <p><ion-icon name="person-outline"></ion-icon> {{userInfo.apellidos}}</p>
+                <p><ion-icon name="mail-outline"></ion-icon> {{userInfo.email}}</p>
+                <p><ion-icon name="call-outline"></ion-icon> {{userInfo.telefono}}</p>
+                <p><ion-icon name="card-outline"></ion-icon> {{userInfo.ss}}</p>
+                <p><ion-icon name="location-outline"></ion-icon> {{userInfo.direccion}}</p>
+              </ion-col>
+            </div>
+          </ion-row>
+        </ion-grid>
+
+
+      </div>
+    </div>
+
+    <div id="gestionDatos">
+
+      <div class="solicitarFecha">Si desea modificar sus datos:</div>
+
+      <ion-item class="rounded">
+        <ion-label>Direccion:</ion-label>
+        <ion-input [(ngModel)]="campos.direccion"></ion-input>
+      </ion-item>
+
+      <ion-item class="rounded">
+        <ion-label>Teléfono:</ion-label>
+        <ion-input [(ngModel)]="campos.telefono"></ion-input>
+
+      </ion-item>
+
+      <ion-button shape="round" expand="block">
+        <ion-icon  slot="start" name="receipt-outline"></ion-icon>
+        Cambiar datos
+      </ion-button>
+    </div>
+
+
+  </div>
+
+
+</ion-content>

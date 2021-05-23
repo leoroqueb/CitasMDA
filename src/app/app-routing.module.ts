@@ -36,10 +36,17 @@ const routes: Routes = [
   {
     path: 'home-admin',
     loadChildren: () => import('./home-admin/home-admin.module').then( m => m.HomeAdminPageModule)
-  },  {
+  },
+  {
     path: 'modal-horario',
     loadChildren: () => import('./modal-horario/modal-horario.module').then( m => m.ModalHorarioPageModule)
   },
+  {
+    path: 'gestion-perfil',
+    loadChildren: () => import('./gestion-perfil/gestion-perfil.module').then( m => m.GestionPerfilPageModule),
+    canActivate: [ AngularFireAuthGuard ],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
+  }
 
 ];
 
