@@ -9,6 +9,9 @@ import { ModalHorarioPage } from '../modal-horario/modal-horario.page';
 })
 export class HomeAdminPage {
 
+  minDate: string = new Date().toISOString();
+  daySelected: '';
+
   constructor(public modalController: ModalController) { }
 
   // Editar horario
@@ -31,7 +34,7 @@ export class HomeAdminPage {
   // Modal Editar Horario
   async presentEditModal(dia, horario, aforo) {
     const modal = await this.modalController.create({
-      component: ModalHorarioPage, 
+      component: ModalHorarioPage,
       cssClass: 'my-custom-class',
       componentProps: {
         title: 'Editar horario',
@@ -60,6 +63,15 @@ export class HomeAdminPage {
   fixDate(fecha){
     const fechas = fecha.split('/');
     return(fechas[2] + '/' + fechas[1] + '/' + fechas[0]);
+  }
+
+  async loadDates(){
+    const date = this.daySelected.split('T')[0].split('-');
+    // date[0] - Año
+    // date[1] - Mes
+    // date[2] - Día
+    // Traigo de la BD las fechas bro
+
   }
 
 }

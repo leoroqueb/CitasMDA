@@ -65,3 +65,20 @@ $purple: #5F2967;
 #container a {
   text-decoration: none;
 }
+
+ion-list{
+  padding: 0!important;
+
+  ion-item {
+
+    .date-aforo{
+      text-align: right;
+      margin-right: 0.5em;
+    }
+  }
+}
+
+.rounded{
+  border-radius: 20px;
+  margin: 1em;
+}
