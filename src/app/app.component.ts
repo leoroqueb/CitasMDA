@@ -26,7 +26,7 @@ export class AppComponent {
     {
       title: 'Gestionar Perfil',
       url: '/gestion-perfil',
-      icon: 'calendar'
+      icon: 'build'
     },
 
   ];
